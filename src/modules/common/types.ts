@@ -15,6 +15,6 @@ export type TNormalize<T = TItem> = (list: T[]) => {
   list: string[];
 };
 
-export type TAction<TResult> = (dispatch: TDispatch) => Promise<TResult>;
+export type TAction<TResult> = (dispatch: TDispatch) => TResult | Promise<TResult>;
 
 export type TActionData<TResult, TData = never> = (data: TData) => (dispatch: TDispatch) => Promise<TResult>;

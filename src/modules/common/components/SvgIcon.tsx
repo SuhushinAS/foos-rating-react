@@ -23,6 +23,7 @@ export class SvgIcon extends React.PureComponent<TIconProps, TIconState> {
     name: '',
   };
   isMount = false;
+
   state = {
     symbol: '',
     view: '',

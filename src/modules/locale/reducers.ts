@@ -24,3 +24,5 @@ export const locale = createSlice({
     },
   },
 });
+
+export const localeActions = locale.actions;

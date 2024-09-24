@@ -1,6 +1,6 @@
 import {useAppDispatch, useAppSelector} from 'app/hooks';
 import {actionLocaleGetList, actionLocaleGetMessages, actionLocaleInit} from 'modules/locale/actions';
-import {locale} from 'modules/locale/reducers';
+import {localeActions} from 'modules/locale/reducers';
 import {selectLocaleCurrent, selectMessages} from 'modules/locale/selectors';
 import {selectLoadItem} from 'modules/status/selectors';
 import React, {useEffect} from 'react';
@@ -19,7 +19,7 @@ export const LocaleProvider = ({children}: TLocaleProps) => {
   }, [dispatch]);
 
   const language = useAppSelector(selectLocaleCurrent);
-  const loadMessages = useAppSelector(selectLoadItem(locale.actions.getMessages.type));
+  const loadMessages = useAppSelector(selectLoadItem(localeActions.getMessages.type));
   const messages = useAppSelector(selectMessages(language));
 
   useEffect(() => {

@@ -4,7 +4,7 @@ type TKeyHandlerProps = {
   keyList: any;
 };
 
-export class KeyHandler extends React.Component<TKeyHandlerProps> {
+export class KeyHandler extends React.Component<TKeyHandlerProps, unknown> {
   handlerAdd = (eventName) => {
     document.addEventListener(eventName, this.handler);
   };

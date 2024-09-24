@@ -1,47 +1,31 @@
-import type {TDispatch} from 'app/types';
-import {TState} from 'app/types';
+import {useAppDispatch, useAppSelector} from 'app/hooks';
 import {Api} from 'modules/common/helpers/api';
 import {actionConfigGet} from 'modules/config/actions';
-import {selectConfig} from 'modules/config/selectors';
-import type {TConfig} from 'modules/config/types';
-import React from 'react';
-import {connect} from 'react-redux';
+import {configActions} from 'modules/config/reducers';
+import {selectLoadItem} from 'modules/status/selectors';
+import React, {useEffect} from 'react';
 
-type TConfigProps = {
+type TProps = {
   children: React.ReactNode;
-  config: TConfig;
-  dispatch: TDispatch;
 };
 
-export class ConfigComponent extends React.Component<TConfigProps, TConfig> {
-  state;
+export const Config = ({children}: TProps) => {
+  const dispatch = useAppDispatch();
+  const loadConfig = useAppSelector(selectLoadItem(configActions.update.type));
 
-  constructor(props: TConfigProps) {
-    super(props);
-    props.dispatch(actionConfigGet());
-  }
+  useEffect(() => {
+    dispatch(actionConfigGet).then((config) => {
+      Api.host = config.host;
+    });
+  }, [dispatch]);
 
-  render() {
-    if (this.state) {
-      return this.props.children;
-    }
-
+  if (undefined === loadConfig) {
     return null;
   }
 
-  /**
-   * Вызывается сразу после render.
-   * Не вызывается в момент первого render компонента.
-   * @param props Предыдущие свойства.
-   */
-  componentDidUpdate(props) {
-    const {config} = this.props;
-
-    if (props.config !== config) {
-      Api.host = config.host;
-      this.setState(config);
-    }
+  if (loadConfig) {
+    return <div>Loading...</div>;
   }
-}
 
-export const Config = connect((state: TState) => ({config: selectConfig(state)}))(ConfigComponent);
+  return children;
+};

@@ -16,6 +16,20 @@ module.exports = (options) => {
           host: '0.0.0.0',
           hot: true,
           port: 8000,
+          proxy: [
+            {
+              changeOrigin: true,
+              context: ['/nsk'],
+              secure: false,
+              target: 'https://dyp-nsk.gear54.me',
+            },
+            {
+              changeOrigin: true,
+              context: ['/tsk'],
+              secure: false,
+              target: 'https://tsk.gear54.me',
+            },
+          ],
           static: options.public,
         },
     devtool: isProd ? false : 'eval-source-map',
