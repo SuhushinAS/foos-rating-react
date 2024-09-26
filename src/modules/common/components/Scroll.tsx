@@ -1,5 +1,5 @@
 import baron from 'baron';
-import {debounce} from 'modules/common/helpers/debounce';
+import {debounce} from 'modules/common/lib/debounce';
 import React, {ReactNode} from 'react';
 import './Scroll.less';
 

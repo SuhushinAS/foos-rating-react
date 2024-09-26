@@ -1,8 +1,8 @@
-import {useAppDispatch} from 'app/hooks';
-import {actionExampleGetList} from 'modules/example/actions';
+import {useAppDispatch} from 'app/lib/hooks';
 import {ExamplePageItem} from 'modules/example/components/ExamplePageItem';
 import {ExamplePageList} from 'modules/example/components/ExamplePageList';
-import {examplePaths} from 'modules/example/constants';
+import {actionExampleGetList} from 'modules/example/model/actions';
+import {examplePaths} from 'modules/example/model/constants';
 import React, {useEffect} from 'react';
 import {Route, Routes} from 'react-router-dom';
 

@@ -1,4 +1,4 @@
-import {TExample} from 'modules/example/types';
+import {TExample} from 'modules/example/model/types';
 import React from 'react';
 import './ExampleItem.less';
 

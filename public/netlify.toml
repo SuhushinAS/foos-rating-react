@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "/tsk/api/*"
+  to = "https://tsk.gear54.me/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/nsk/api/*"
+  to = "https://dyp-nsk.gear54.me/api/:splat"
+  status = 200
+  force = true

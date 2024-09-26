@@ -20,12 +20,14 @@ module.exports = (options) => {
             {
               changeOrigin: true,
               context: ['/nsk'],
+              pathRewrite: {'^/nsk': ''},
               secure: false,
               target: 'https://dyp-nsk.gear54.me',
             },
             {
               changeOrigin: true,
               context: ['/tsk'],
+              pathRewrite: {'^/tsk': ''},
               secure: false,
               target: 'https://tsk.gear54.me',
             },

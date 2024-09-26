@@ -1,4 +1,4 @@
-import {Navigation} from 'modules/layout/components/Navigation';
+import {Navigation} from 'modules/navigation/components/Navigation';
 import React from 'react';
 import './Footer.less';
 

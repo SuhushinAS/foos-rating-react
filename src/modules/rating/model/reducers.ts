@@ -1,19 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {TCityKey} from 'modules/city/model/types';
-import {TEventKey} from 'modules/event/model/types';
-import {TPlayerKey} from 'modules/player/model/types';
-import {TRangeKey} from 'modules/range/model/types';
-import {TRatingStoreV2} from 'modules/rating/model/types';
-import {TSchemeKey} from 'modules/scheme/model/types';
+import {TCity} from 'modules/navigation/model/types';
+import {TFavorite, TRatingCity, TRatingStoreV2} from 'modules/rating/model/types';
 
 const initialState: TRatingStoreV2 = {
-  city: TCityKey.tsk,
-  event: TEventKey.full,
   favoriteData: {},
-  player: TPlayerKey.full,
-  range: TRangeKey.full,
   ratingData: {},
-  scheme: TSchemeKey.auto,
 };
 
 export const rating = createSlice({
@@ -23,20 +14,29 @@ export const rating = createSlice({
     init: (state, {payload}: PayloadAction<Partial<TRatingStoreV2>>) => {
       return {...state, ...payload};
     },
-    setCity: (state, {payload}: PayloadAction<TCityKey>) => {
-      state.city = payload;
+    load: (state, {payload}: PayloadAction<{city: TCity; ratingData: Partial<TRatingCity>}>) => {
+      const {city, ratingData} = payload;
+
+      state.ratingData[city] = {
+        ...state.ratingData[city],
+        ...ratingData,
+      };
+
+      return state;
     },
-    setEvent: (state, {payload}: PayloadAction<TEventKey>) => {
-      state.event = payload;
+    setFavorite: (state, {payload}: PayloadAction<{city: TCity; favorite: TFavorite}>) => {
+      const {city, favorite} = payload;
+
+      state.favoriteData[city] = favorite;
+
+      return state;
     },
-    setPlayer: (state, {payload}: PayloadAction<TPlayerKey>) => {
-      state.player = payload;
-    },
-    setRange: (state, {payload}: PayloadAction<TRangeKey>) => {
-      state.range = payload;
-    },
-    setScheme: (state, {payload}: PayloadAction<TSchemeKey>) => {
-      state.scheme = payload;
+    setRating: (state, {payload}: PayloadAction<{city: TCity; rating: Partial<TRatingCity>}>) => {
+      const {city, rating} = payload;
+
+      state.ratingData[city] = rating;
+
+      return state;
     },
   },
 });

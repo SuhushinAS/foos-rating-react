@@ -1,7 +1,5 @@
 import {App} from 'app/components/App';
-import {store} from 'app/store';
-import {Config} from 'modules/config/components/Config';
-import {LocaleProvider} from 'modules/locale/components/LocaleProvider';
+import {store} from 'app/model/store';
 import React from 'react';
 import {createRoot, Root} from 'react-dom/client';
 import {Provider} from 'react-redux';
@@ -11,13 +9,9 @@ const getRender = (root: Root) => () => {
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <LocaleProvider>
-          <BrowserRouter>
-            <Config>
-              <App />
-            </Config>
-          </BrowserRouter>
-        </LocaleProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>
     </React.StrictMode>
   );
