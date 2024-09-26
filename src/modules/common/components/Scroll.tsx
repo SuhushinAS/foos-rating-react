@@ -59,11 +59,13 @@ export class Scroll extends React.Component<TScrollProps, unknown> {
     this.references = this.props.dirList.reduce(this.referencesInit, this.references);
   }
 
-  referencesInit = (acc, dir) => ({
-    ...acc,
-    [getBarKey(dir)]: React.createRef<HTMLDivElement>(),
-    [getTrackKey(dir)]: React.createRef<HTMLDivElement>(),
-  });
+  referencesInit = (acc, dir) => {
+    return {
+      ...acc,
+      [getBarKey(dir)]: React.createRef<HTMLDivElement>(),
+      [getTrackKey(dir)]: React.createRef<HTMLDivElement>(),
+    };
+  };
 
   render() {
     return (
@@ -76,11 +78,13 @@ export class Scroll extends React.Component<TScrollProps, unknown> {
     );
   }
 
-  renderScrollbar = (dir) => (
-    <div className={`Scroll__Track Scroll__Track_${dir}`} key={dir} ref={this.references[getTrackKey(dir)]}>
-      <div className={`Scroll__Bar Scroll__Bar_${dir}`} ref={this.references[getBarKey(dir)]} />
-    </div>
-  );
+  renderScrollbar = (dir) => {
+    return (
+      <div className={`Scroll__Track Scroll__Track_${dir}`} key={dir} ref={this.references[getTrackKey(dir)]}>
+        <div className={`Scroll__Bar Scroll__Bar_${dir}`} ref={this.references[getBarKey(dir)]} />
+      </div>
+    );
+  };
 
   componentDidMount() {
     if (needCustomScrollbar) {

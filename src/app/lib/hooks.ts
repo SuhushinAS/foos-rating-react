@@ -1,5 +1,7 @@
 import {TDispatch, TState} from 'app/model/types';
-import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {createSelector} from 'reselect';
 
 export const useAppDispatch = useDispatch.withTypes<TDispatch>();
-export const useAppSelector: TypedUseSelectorHook<TState> = useSelector;
+export const useAppSelector = useSelector.withTypes<TState>();
+export const createAppSelector = createSelector.withTypes<TState>();

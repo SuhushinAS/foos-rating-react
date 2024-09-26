@@ -16,7 +16,9 @@ export const example = createSlice({
   initialState,
   name: 'example',
   reducers: {
-    getList: (state, {payload}: PayloadAction<TExample[]>) => ({...state, ...normalizeExample(payload)}),
+    getList: (state, {payload}: PayloadAction<TExample[]>) => {
+      return {...state, ...normalizeExample(payload)};
+    },
   },
 });
 

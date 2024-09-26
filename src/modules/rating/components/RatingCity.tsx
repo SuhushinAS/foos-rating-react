@@ -8,6 +8,7 @@ type TProps = {
 
 export const RatingCity = ({city}: TProps) => {
   useRatingCityLoad(city);
+
   return (
     <div>
       <div>RatingCity {city}</div>

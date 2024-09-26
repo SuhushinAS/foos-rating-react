@@ -1,4 +1,4 @@
-import {TCity, TSchemeKey} from 'modules/navigation/model/types';
+import {TCity, TRange, TSchemeKey} from 'modules/navigation/model/types';
 
 export type TRatingStoreV1 = {
   favorite?: TFavorite;
@@ -20,8 +20,8 @@ export type TRatingDataV1 = {
 };
 
 export type TRatingStoreV2 = {
+  cityData: TRatingCityData;
   favoriteData: TFavoriteData;
-  ratingData: TRatingCityData;
 };
 
 export type TRatingCityData = {
@@ -31,16 +31,24 @@ export type TRatingCityData = {
 export type TRatingCity = {
   favorite: TFavorite;
   lastEvent: TLastEvent;
-  ratings: TRating[];
-  season: TRating[];
+  rangeData: TRatingRangeData;
   seasonStartDate: string;
+};
+
+export type TRatingRangeData = {
+  [key in TRange]?: TRatingRange;
+};
+
+export type TRatingRange = {
+  eventsTotal: number;
+  ratings: TRating[];
 };
 
 export type TFavoriteData = {
   [key in TCity]?: TFavorite;
 };
 
-export type TFavorite = Record<string, number>;
+export type TFavorite = Record<string, boolean>;
 
 export type TLastEvent = {
   date: string;

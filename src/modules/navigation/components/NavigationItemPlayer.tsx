@@ -1,20 +1,14 @@
-import {useAppDispatch, useAppSelector} from 'app/lib/hooks';
-import {NavigationItemList} from 'modules/navigation/components/NavigationItemList';
-import {playerList} from 'modules/navigation/model/constants';
-import {navigationActions} from 'modules/navigation/model/reducers';
-import {selectPlayer} from 'modules/navigation/model/selectors';
-import React, {useCallback} from 'react';
+import {useAppSelector} from 'app/lib/hooks';
+import {NavigationItemPlayerInner} from 'modules/navigation/components/NavigationItemPlayerInner';
+import {selectFavoriteCity} from 'modules/rating/model/selectors';
+import React from 'react';
 
 export const NavigationItemPlayer = () => {
-  const player = useAppSelector(selectPlayer);
-  const dispatch = useAppDispatch();
+  const favoriteCity = useAppSelector(selectFavoriteCity);
 
-  const onNavigationItemClick = useCallback(
-    (value) => {
-      dispatch(navigationActions.setPlayer(value));
-    },
-    [dispatch]
-  );
+  if (favoriteCity === undefined) {
+    return null;
+  }
 
-  return <NavigationItemList list={playerList} onClick={onNavigationItemClick} value={player} />;
+  return <NavigationItemPlayerInner favoriteCity={favoriteCity} />;
 };

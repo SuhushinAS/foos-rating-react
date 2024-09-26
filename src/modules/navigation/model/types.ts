@@ -1,9 +1,18 @@
+import React from 'react';
+
 export type TNavigation = {
   city: TCity;
   event: TEvent;
   player: TPlayer;
   range: TRange;
   scheme: TSchemeKey;
+};
+
+export type TNavigationItem = {
+  icon: React.ReactNode;
+  description: React.ReactNode;
+  title: React.ReactNode;
+  value: string | number;
 };
 
 export enum TCity {

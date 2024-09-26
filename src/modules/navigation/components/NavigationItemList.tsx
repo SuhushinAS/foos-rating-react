@@ -1,16 +1,11 @@
 import {NavigationButton} from 'modules/navigation/components/NavigationButton';
 import {NavigationItem} from 'modules/navigation/components/NavigationItem';
+import {TNavigationItem} from 'modules/navigation/model/types';
 import React, {useCallback, useMemo} from 'react';
 
 type TProps = {
-  list: TItem[];
+  list: TNavigationItem[];
   onClick: (value: string | number) => void;
-  value: string | number;
-};
-
-export type TItem = {
-  icon: React.ReactNode;
-  title: React.ReactNode;
   value: string | number;
 };
 
@@ -30,7 +25,7 @@ export const NavigationItemList = ({list, onClick, value}: TProps) => {
 
   return (
     <NavigationButton onClick={onNavigationButtonClick}>
-      <NavigationItem icon={item.icon} title={item.title} />
+      <NavigationItem description={item.description} icon={item.icon} title={item.title} />
     </NavigationButton>
   );
 };

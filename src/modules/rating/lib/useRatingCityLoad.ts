@@ -1,10 +1,10 @@
-import {useAppDispatch, useAppSelector} from 'app/lib/hooks';
+import {useAppDispatch} from 'app/lib/hooks';
 import {api} from 'modules/common/lib/api';
-import {TCity} from 'modules/navigation/model/types';
+import {TCity, TRange} from 'modules/navigation/model/types';
 import {ratingActions} from 'modules/rating/model/reducers';
 import {TRatingCity, TRatingDataAPI, TRatingSeasonDataAPI} from 'modules/rating/model/types';
-import {statusActions} from 'modules/status/reducers';
-import {selectLoadItem} from 'modules/status/selectors';
+import {useLoadItem} from 'modules/status/lib/useLoadItem';
+import {statusActions} from 'modules/status/model/reducers';
 import {useEffect} from 'react';
 
 const cityMap = {
@@ -29,7 +29,7 @@ const getLoadCityKet = (city: TCity) => {
 export const useRatingCityLoad = (city: TCity) => {
   const dispatch = useAppDispatch();
   const loadKey = getLoadCityKet(city);
-  const load = useAppSelector(selectLoadItem(loadKey));
+  const load = useLoadItem(loadKey);
 
   useEffect(() => {
     if (undefined === load) {
@@ -42,8 +42,16 @@ export const useRatingCityLoad = (city: TCity) => {
       Promise.all([api.request<TRatingDataAPI>(urlRatingsFull), api.request<TRatingSeasonDataAPI>(urlRatingsSeason)]).then(([full, season]) => {
         const rating: Partial<TRatingCity> = {
           lastEvent: full.lastEvent,
-          ratings: full.ratings.map(getRating),
-          season: season.ratings.map(getRating),
+          rangeData: {
+            [TRange.full]: {
+              eventsTotal: full.eventsTotal,
+              ratings: full.ratings.map(getRating),
+            },
+            [TRange.season]: {
+              eventsTotal: season.eventsTotal,
+              ratings: season.ratings.map(getRating),
+            },
+          },
           seasonStartDate: season.seasonStartDate,
         };
 

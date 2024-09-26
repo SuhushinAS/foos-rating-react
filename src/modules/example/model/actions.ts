@@ -2,7 +2,7 @@ import {api} from 'modules/common/lib/api';
 import {TAction} from 'modules/common/model/types';
 import {exampleActions} from 'modules/example/model/reducers';
 import {TExample} from 'modules/example/model/types';
-import {statusActions} from 'modules/status/reducers';
+import {statusActions} from 'modules/status/model/reducers';
 
 export const actionExampleGetList: TAction<TExample[]> = (dispatch) => {
   dispatch(statusActions.loadStart(exampleActions.getList.type));

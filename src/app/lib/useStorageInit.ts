@@ -3,12 +3,12 @@ import {navigationActions} from 'modules/navigation/model/reducers';
 import {TCity, TEvent, TPlayer, TRange} from 'modules/navigation/model/types';
 import {storageKeyV1, storageKeyV2} from 'modules/rating/model/constants';
 import {ratingActions} from 'modules/rating/model/reducers';
-import {selectRating} from 'modules/rating/model/selectors';
+import {selectRatingStore} from 'modules/rating/model/selectors';
 import {TRatingStoreV1, TRatingStoreV2} from 'modules/rating/model/types';
 import {useEffect, useState} from 'react';
 
 export const useStorageInit = () => {
-  const rating = useAppSelector(selectRating);
+  const rating = useAppSelector(selectRatingStore);
   const dispatch = useAppDispatch();
   const [isInit, setIsInit] = useState(false);
 

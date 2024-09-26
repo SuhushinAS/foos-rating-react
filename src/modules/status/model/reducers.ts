@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {TStatusStore} from 'modules/status/types';
+import {TStatusStore} from 'modules/status/model/types';
 
 const initialState: TStatusStore = {
   load: {},

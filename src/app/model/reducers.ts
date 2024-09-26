@@ -1,7 +1,7 @@
 import {example} from 'modules/example/model/reducers';
 import {navigation} from 'modules/navigation/model/reducers';
 import {rating} from 'modules/rating/model/reducers';
-import {status} from 'modules/status/reducers';
+import {status} from 'modules/status/model/reducers';
 import {combineReducers} from 'redux';
 
 export const rootReducer = combineReducers({

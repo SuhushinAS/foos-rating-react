@@ -3,8 +3,8 @@ import {TCity} from 'modules/navigation/model/types';
 import {TFavorite, TRatingCity, TRatingStoreV2} from 'modules/rating/model/types';
 
 const initialState: TRatingStoreV2 = {
+  cityData: {},
   favoriteData: {},
-  ratingData: {},
 };
 
 export const rating = createSlice({
@@ -14,12 +14,12 @@ export const rating = createSlice({
     init: (state, {payload}: PayloadAction<Partial<TRatingStoreV2>>) => {
       return {...state, ...payload};
     },
-    load: (state, {payload}: PayloadAction<{city: TCity; ratingData: Partial<TRatingCity>}>) => {
-      const {city, ratingData} = payload;
+    load: (state, {payload}: PayloadAction<{city: TCity; cityData: Partial<TRatingCity>}>) => {
+      const {city, cityData} = payload;
 
-      state.ratingData[city] = {
-        ...state.ratingData[city],
-        ...ratingData,
+      state.cityData[city] = {
+        ...state.cityData[city],
+        ...cityData,
       };
 
       return state;
@@ -34,7 +34,7 @@ export const rating = createSlice({
     setRating: (state, {payload}: PayloadAction<{city: TCity; rating: Partial<TRatingCity>}>) => {
       const {city, rating} = payload;
 
-      state.ratingData[city] = rating;
+      state.cityData[city] = rating;
 
       return state;
     },

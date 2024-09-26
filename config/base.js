@@ -2,7 +2,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const getIsProd = require('./get-is-prod');
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
-const getPlugins = ({mode}) => (getIsProd(mode) ? [] : [new ReactRefreshPlugin()]);
+const getPlugins = ({mode}) => {
+  if (getIsProd(mode)) {
+    return [];
+  }
+
+  return [new ReactRefreshPlugin()];
+};
 
 module.exports = (options) => {
   const isProd = getIsProd(options.mode);
