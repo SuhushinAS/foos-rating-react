@@ -6,11 +6,8 @@ import React from 'react';
 
 export const Rating = () => {
   const city = useAppSelector(selectCity);
+
   useStorageInit();
 
-  return (
-    <div>
-      <RatingCity city={city} />
-    </div>
-  );
+  return <RatingCity city={city} />;
 };

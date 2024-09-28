@@ -8,6 +8,12 @@ if (container) {
   const root = createRoot(container);
 
   root.render(<App />);
+
+  if (module.hot) {
+    module.hot.accept('app/components/App', () => {
+      root.render(<App />);
+    });
+  }
 }
 
 const onRegisterError = (error) => {
