@@ -1,0 +1,50 @@
+@import (reference) 'src/styles/mixins';
+
+@w-position: 28px;
+@w-position-change: 20px;
+@w-name: 188px;
+@w-rank: 20px;
+@w-value: 36px;
+@w-value-change: 20px;
+@w-favorite: 40px;
+@w_total: @w-position + @w-position-change + @w-name + @w-rank + @w-value + @w-value-change + @w-favorite;
+
+.RatingListItem {
+  &__Col {
+    padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &_Position {
+      text-align: right;
+      width: percentage(@w-position / @w_total);
+    }
+
+    &_PositionChange {
+      width: percentage(@w-position-change / @w_total);
+    }
+
+    &_Name {
+      //width: percentage(@w-name / @w_total);
+    }
+
+    &_Rank {
+      width: percentage(@w-rank / @w_total);
+    }
+
+    &_Value {
+      text-align: right;
+      width: percentage(@w-value / @w_total);
+    }
+
+    &_ValueChange {
+      width: percentage(@w-value-change / @w_total);
+    }
+
+    &_Favorite {
+      text-align: right;
+      width: percentage(@w-favorite / @w_total);
+    }
+  }
+}

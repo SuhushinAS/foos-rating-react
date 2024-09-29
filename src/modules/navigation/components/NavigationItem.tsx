@@ -1,18 +1,21 @@
-import 'modules/navigation/components/NavigationItem.less';
-import React from 'react';
+import 'modules/navigation/components/NavigationItem2.less';
+import React, {useMemo} from 'react';
 
 type TProps = {
-  description: React.ReactNode;
-  icon: React.ReactNode;
-  title: React.ReactNode;
+  children: React.ReactNode;
+  isActive?: boolean;
 };
 
-export const NavigationItem = ({description, icon, title}: TProps) => {
-  return (
-    <div className="NavigationItem">
-      <div className="NavigationItem__Icon">{icon}</div>
-      <div className="NavigationItem__Title">{title}</div>
-      <div className="NavigationItem__Description">{description}</div>
-    </div>
-  );
+export const NavigationItem = ({children, isActive = false}: TProps) => {
+  const className = useMemo(() => {
+    const classList = ['NavigationItem'];
+
+    if (isActive) {
+      classList.push('NavigationItem_isActive');
+    }
+
+    return classList.join(' ');
+  }, [isActive]);
+
+  return <div className={className}>{children}</div>;
 };

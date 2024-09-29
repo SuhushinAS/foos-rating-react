@@ -1,6 +1,9 @@
 import {useAppDispatch, useAppSelector} from 'app/lib/hooks';
-import {navigationActions} from 'modules/navigation/model/reducers';
-import {TCity, TEvent, TPlayer, TRange} from 'modules/navigation/model/types';
+import {useFilter} from 'modules/navigation/lib/useFilter';
+import {useRange} from 'modules/navigation/lib/useRange';
+import {useScheme} from 'modules/navigation/lib/useScheme';
+import {schemeMap} from 'modules/navigation/model/constants';
+import {TCity, TFilter, TRange} from 'modules/navigation/model/types';
 import {storageKeyV1, storageKeyV2} from 'modules/rating/model/constants';
 import {ratingActions} from 'modules/rating/model/reducers';
 import {selectRatingStore} from 'modules/rating/model/selectors';
@@ -10,6 +13,9 @@ import {useEffect, useState} from 'react';
 export const useStorageInit = () => {
   const rating = useAppSelector(selectRatingStore);
   const dispatch = useAppDispatch();
+  const [, setFilter] = useFilter();
+  const [, setRange] = useRange();
+  const [, setScheme] = useScheme();
   const [isInit, setIsInit] = useState(false);
 
   useEffect(() => {
@@ -29,19 +35,17 @@ export const useStorageInit = () => {
           }
 
           if (scheme !== undefined) {
-            dispatch(navigationActions.setScheme(scheme));
+            setScheme(schemeMap[scheme]);
           }
 
           if (true === isSeason) {
-            dispatch(navigationActions.setRange(TRange.season));
+            setRange(TRange.season);
           }
 
           if (true === isFavorite) {
-            dispatch(navigationActions.setPlayer(TPlayer.favorite));
-          }
-
-          if (true === isLast) {
-            dispatch(navigationActions.setEvent(TEvent.last));
+            setFilter(TFilter.favorite);
+          } else if (true === isLast) {
+            setFilter(TFilter.last);
           }
         } catch (error) {
           console.error(error);

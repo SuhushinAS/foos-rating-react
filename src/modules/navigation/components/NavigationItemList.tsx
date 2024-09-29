@@ -1,18 +1,12 @@
 import {NavigationButton} from 'modules/navigation/components/NavigationButton';
 import {NavigationItem} from 'modules/navigation/components/NavigationItem';
-import {TNavigationItem} from 'modules/navigation/model/types';
-import React, {useCallback, useMemo} from 'react';
+import {NavigationItemInner} from 'modules/navigation/components/NavigationItemInner';
+import {useIndexMap} from 'modules/navigation/lib/useIndexMap';
+import {TNavigationListProps} from 'modules/navigation/model/types';
+import React, {useCallback} from 'react';
 
-type TProps = {
-  list: TNavigationItem[];
-  onClick: (value: string | number) => void;
-  value: string | number;
-};
-
-export const NavigationItemList = ({list, onClick, value}: TProps) => {
-  const indexMap = useMemo(() => {
-    return Object.fromEntries<number>(list.map(({value}, index) => [value, index]));
-  }, [list]);
+export const NavigationItemList = <T extends string | number>({list, onChange, value}: TNavigationListProps<T>) => {
+  const indexMap = useIndexMap(list);
   const index = indexMap[value];
   const item = list[index];
 
@@ -20,12 +14,14 @@ export const NavigationItemList = ({list, onClick, value}: TProps) => {
     const indexNext = (index + 1) % list.length;
     const itemNext = list[indexNext];
 
-    onClick(itemNext.value);
-  }, [index, list, onClick]);
+    onChange(itemNext.value);
+  }, [index, list, onChange]);
 
   return (
     <NavigationButton onClick={onNavigationButtonClick}>
-      <NavigationItem description={item.description} icon={item.icon} title={item.title} />
+      <NavigationItem>
+        <NavigationItemInner icon={item.icon} title={item.title} />
+      </NavigationItem>
     </NavigationButton>
   );
 };

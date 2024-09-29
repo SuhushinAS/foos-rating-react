@@ -1,49 +1,27 @@
-import {useAppDispatch, useAppSelector} from 'app/lib/hooks';
-import {SvgIcon} from 'modules/common/components/SvgIcon';
-import {plural} from 'modules/common/lib/plural';
-import {NavigationItemList} from 'modules/navigation/components/NavigationItemList';
-import {navigationActions} from 'modules/navigation/model/reducers';
-import {selectCity} from 'modules/navigation/model/selectors';
-import {TCity, TNavigationItem} from 'modules/navigation/model/types';
-import {selectEventsTotal} from 'modules/rating/model/selectors';
-import React, {useCallback, useMemo} from 'react';
+import {NavigationButton} from 'modules/navigation/components/NavigationButton';
+import {useCity} from 'modules/navigation/lib/useCity';
+import {getIndexMap} from 'modules/navigation/lib/useIndexMap';
+import {cityList} from 'modules/navigation/model/constants';
+import React, {useCallback} from 'react';
+
+const indexMap = getIndexMap(cityList);
 
 export const NavigationItemCity = () => {
-  const city = useAppSelector(selectCity);
-  const eventsTotal = useAppSelector(selectEventsTotal);
-  const dispatch = useAppDispatch();
+  const [city, setCity] = useCity();
 
-  const description = useMemo<string | number>(() => {
-    if (eventsTotal === undefined) {
-      return '\u00A0';
-    }
+  const index = indexMap[city];
+  const item = cityList[index];
 
-    return `${eventsTotal} ${plural(eventsTotal, ['игра', 'игры', 'игр'])}`;
-  }, [eventsTotal]);
+  const onNavigationButtonClick = useCallback(() => {
+    const indexNext = (index + 1) % cityList.length;
+    const itemNext = cityList[indexNext];
 
-  const cityList = useMemo<TNavigationItem[]>(() => {
-    return [
-      {
-        description,
-        icon: <SvgIcon name="map-marker" />,
-        title: 'Томск',
-        value: TCity.tsk,
-      },
-      {
-        description,
-        icon: <SvgIcon name="map-marker" />,
-        title: 'Новосибирск',
-        value: TCity.nsk,
-      },
-    ];
-  }, [description]);
+    setCity(itemNext.value);
+  }, [index, setCity]);
 
-  const onNavigationItemClick = useCallback(
-    (city) => {
-      dispatch(navigationActions.setCity(city));
-    },
-    [dispatch]
+  return (
+    <NavigationButton onClick={onNavigationButtonClick}>
+      <h1>{item.title}</h1>
+    </NavigationButton>
   );
-
-  return <NavigationItemList list={cityList} onClick={onNavigationItemClick} value={city} />;
 };

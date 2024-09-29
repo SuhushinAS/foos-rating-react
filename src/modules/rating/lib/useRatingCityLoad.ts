@@ -1,6 +1,7 @@
 import {useAppDispatch} from 'app/lib/hooks';
 import {api} from 'modules/common/lib/api';
 import {TCity, TRange} from 'modules/navigation/model/types';
+import {getLoadCityKey} from 'modules/rating/lib/getLoadCityKey';
 import {ratingActions} from 'modules/rating/model/reducers';
 import {TRatingCity, TRatingDataAPI, TRatingSeasonDataAPI} from 'modules/rating/model/types';
 import {useLoadItem} from 'modules/status/lib/useLoadItem';
@@ -22,13 +23,9 @@ const getRating = (rating, index) => {
   };
 };
 
-const getLoadCityKet = (city: TCity) => {
-  return `${ratingActions.load.type}/${city}`;
-};
-
 export const useRatingCityLoad = (city: TCity) => {
   const dispatch = useAppDispatch();
-  const loadKey = getLoadCityKet(city);
+  const loadKey = getLoadCityKey(city);
   const load = useLoadItem(loadKey);
 
   useEffect(() => {

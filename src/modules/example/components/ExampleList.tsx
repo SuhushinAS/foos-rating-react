@@ -1,5 +1,6 @@
 import {useAppSelector} from 'app/lib/hooks';
 import {appPath} from 'app/model/constants';
+import {Loader} from 'modules/common/components/Loader';
 import {exampleIdKey} from 'modules/example/model/constants';
 import {exampleActions} from 'modules/example/model/reducers';
 import {selectExampleList} from 'modules/example/model/selectors';
@@ -15,12 +16,12 @@ export const ExampleList = () => {
   const list = useAppSelector(selectExampleList);
   const load = useLoadItem(exampleActions.getList.type);
 
-  if ('undefined' === typeof load) {
+  if (undefined === load) {
     return null;
   }
 
   if (load) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (

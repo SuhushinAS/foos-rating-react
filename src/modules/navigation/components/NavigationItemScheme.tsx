@@ -1,20 +1,11 @@
-import {useAppDispatch, useAppSelector} from 'app/lib/hooks';
 import {NavigationItemList} from 'modules/navigation/components/NavigationItemList';
+import {useScheme} from 'modules/navigation/lib/useScheme';
 import {schemeList} from 'modules/navigation/model/constants';
-import {navigationActions} from 'modules/navigation/model/reducers';
-import {selectScheme} from 'modules/navigation/model/selectors';
-import React, {useCallback} from 'react';
+import {TSchemeV2} from 'modules/navigation/model/types';
+import React from 'react';
 
 export const NavigationItemScheme = () => {
-  const scheme = useAppSelector(selectScheme);
-  const dispatch = useAppDispatch();
+  const [scheme, setScheme] = useScheme();
 
-  const onNavigationItemClick = useCallback(
-    (value) => {
-      dispatch(navigationActions.setScheme(value));
-    },
-    [dispatch]
-  );
-
-  return <NavigationItemList list={schemeList} onClick={onNavigationItemClick} value={scheme} />;
+  return <NavigationItemList<TSchemeV2> list={schemeList} onChange={setScheme} value={scheme} />;
 };

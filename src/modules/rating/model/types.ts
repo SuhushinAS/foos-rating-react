@@ -1,4 +1,4 @@
-import {TCity, TRange, TSchemeKey} from 'modules/navigation/model/types';
+import {TCity, TRange, TSchemeV1} from 'modules/navigation/model/types';
 
 export type TRatingStoreV1 = {
   favorite?: TFavorite;
@@ -8,7 +8,7 @@ export type TRatingStoreV1 = {
   isSeason?: boolean;
   lastEvent?: TLastEvent;
   ratings?: TRating[];
-  scheme?: TSchemeKey;
+  scheme?: TSchemeV1;
   seasonStartDate?: string;
   tsk?: TRatingDataV1;
   view?: string;

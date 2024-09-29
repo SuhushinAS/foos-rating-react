@@ -2,17 +2,15 @@ import React from 'react';
 
 export type TNavigation = {
   city: TCity;
-  event: TEvent;
-  player: TPlayer;
+  filter: TFilter;
   range: TRange;
-  scheme: TSchemeKey;
+  scheme: TSchemeV2;
 };
 
-export type TNavigationItem = {
-  icon: React.ReactNode;
-  description: React.ReactNode;
-  title: React.ReactNode;
-  value: string | number;
+export type TNavigationItem<T extends string | number = string | number> = {
+  icon?: React.ReactNode;
+  title?: React.ReactNode;
+  value: T;
 };
 
 export enum TCity {
@@ -20,23 +18,31 @@ export enum TCity {
   tsk = 'tsk',
 }
 
-export enum TEvent {
-  full = 'full',
-  last = 'last',
-}
-
-export enum TPlayer {
-  full = 'full',
-  favorite = 'favorite',
-}
-
 export enum TRange {
   full = 'full',
   season = 'season',
 }
 
-export enum TSchemeKey {
+export enum TFilter {
+  favorite = 'favorite',
+  last = 'last',
+  none = 'none',
+}
+
+export enum TSchemeV1 {
   auto,
   dark,
   light,
 }
+
+export enum TSchemeV2 {
+  auto = 'auto',
+  dark = 'dark',
+  light = 'light',
+}
+
+export type TNavigationListProps<T extends string | number> = {
+  list: TNavigationItem<T>[];
+  onChange: (value: T) => void;
+  value: T;
+};

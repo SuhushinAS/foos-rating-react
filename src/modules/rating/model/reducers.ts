@@ -31,6 +31,16 @@ export const rating = createSlice({
 
       return state;
     },
+    setFavoriteItem: (state, {payload}: PayloadAction<{city: TCity; id: number; isFavorite: boolean}>) => {
+      const {city, id, isFavorite} = payload;
+      const favoriteCity = state.favoriteData[city] ?? {};
+
+      favoriteCity[id] = isFavorite;
+
+      state.favoriteData[city] = favoriteCity;
+
+      return state;
+    },
     setRating: (state, {payload}: PayloadAction<{city: TCity; rating: Partial<TRatingCity>}>) => {
       const {city, rating} = payload;
 
