@@ -4,9 +4,9 @@ import {RatingCity} from 'modules/rating/components/RatingCity';
 import React from 'react';
 
 export const Rating = () => {
-  const [city] = useCity();
+  const [city, setCity] = useCity();
 
   useStorageInit();
 
-  return <RatingCity city={city} />;
+  return <RatingCity city={city} setCity={setCity} />;
 };

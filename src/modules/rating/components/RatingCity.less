@@ -1,0 +1,18 @@
+@import (reference) 'src/styles/mixins';
+
+.RatingCity {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  min-height: 0;
+
+  &__Header {
+    flex-shrink: 0;
+  }
+
+  &__Body {
+    flex-basis: 100%;
+    min-height: 0;
+    overflow: auto;
+  }
+}

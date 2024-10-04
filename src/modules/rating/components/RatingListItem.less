@@ -2,12 +2,12 @@
 
 @w-position: 28px;
 @w-position-change: 20px;
-@w-name: 188px;
+@w-name: 196px;
 @w-rank: 20px;
 @w-value: 36px;
 @w-value-change: 20px;
 @w-favorite: 40px;
-@w_total: @w-position + @w-position-change + @w-name + @w-rank + @w-value + @w-value-change + @w-favorite;
+@w-total: @w-position + @w-position-change + @w-name + @w-rank + @w-value + @w-value-change + @w-favorite;
 
 .RatingListItem {
   &__Col {
@@ -18,33 +18,33 @@
 
     &_Position {
       text-align: right;
-      width: percentage(@w-position / @w_total);
+      width: percentage(@w-position / @w-total);
     }
 
     &_PositionChange {
-      width: percentage(@w-position-change / @w_total);
+      width: percentage(@w-position-change / @w-total);
     }
 
     &_Name {
-      //width: percentage(@w-name / @w_total);
+      width: percentage(@w-name / @w-total);
     }
 
     &_Rank {
-      width: percentage(@w-rank / @w_total);
+      width: percentage(@w-rank / @w-total);
     }
 
     &_Value {
       text-align: right;
-      width: percentage(@w-value / @w_total);
+      width: percentage(@w-value / @w-total);
     }
 
     &_ValueChange {
-      width: percentage(@w-value-change / @w_total);
+      width: percentage(@w-value-change / @w-total);
     }
 
     &_Favorite {
       text-align: right;
-      width: percentage(@w-favorite / @w_total);
+      width: percentage(@w-favorite / @w-total);
     }
   }
 }

@@ -1,4 +1,4 @@
-import 'modules/navigation/components/NavigationItem2.less';
+import 'modules/navigation/components/NavigationItem.less';
 import React, {useMemo} from 'react';
 
 type TProps = {
