@@ -12,6 +12,22 @@
 @w-total: @w-position-head + @w-name + @w-rank + @w-value-head;
 
 .RatingListItem {
+  .html_light & {
+    color: @c-black-6;
+
+    &:nth-child(even) {
+      background-color: @c-black-10;
+    }
+  }
+
+  .html_dark & {
+    color: @c-white-5;
+
+    &:nth-child(even) {
+      background-color: fade(@c-gray-3, 50%);
+    }
+  }
+
   &__Col {
     padding: 0 1px;
     overflow: hidden;
@@ -19,36 +35,45 @@
     white-space: nowrap;
 
     &_Position {
+      min-width: percentage(@w-position / @w-total);
       text-align: right;
       width: percentage(@w-position / @w-total);
     }
 
     &_PositionChange {
+      min-width: percentage(@w-position-change / @w-total);
       width: percentage(@w-position-change / @w-total);
     }
 
     &_PositionHead {
+      min-width: percentage(@w-position-head / @w-total);
       width: percentage(@w-position-head / @w-total);
     }
 
     &_Name {
+      min-width: percentage(@w-name / @w-total);
       width: percentage(@w-name / @w-total);
     }
 
     &_Rank {
+      min-width: percentage(@w-rank / @w-total);
+      text-align: center;
       width: percentage(@w-rank / @w-total);
     }
 
     &_Value {
+      min-width: percentage(@w-value / @w-total);
       text-align: right;
       width: percentage(@w-value / @w-total);
     }
 
     &_ValueChange {
+      min-width: percentage(@w-value-change / @w-total);
       width: percentage(@w-value-change / @w-total);
     }
 
     &_ValueHead {
+      min-width: percentage(@w-value-head / @w-total);
       width: percentage(@w-value-head / @w-total);
     }
 

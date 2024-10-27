@@ -1,15 +1,18 @@
 @import (reference) 'src/styles/mixins';
 
 .RatingRank {
+  @size: 32px;
+
   background-color: @c-black-9;
-  border-radius: 50%;
-  font-size: 14px;
+  border-radius: @size;
+  display: inline-block;
+  font-size: 16px;
   font-weight: bold;
-  height: 20px;
-  line-height: 20px;
+  height: @size;
+  line-height: @size;
   text-align: center;
   text-transform: capitalize;
-  width: 20px;
+  width: @size;
 
   &_novice {
     background-color: fade(@c-rate-1, 40%);
