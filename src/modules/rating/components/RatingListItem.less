@@ -1,17 +1,19 @@
 @import (reference) 'src/styles/mixins';
 
-@w-position: 28px;
-@w-position-change: 20px;
-@w-name: 196px;
-@w-rank: 20px;
-@w-value: 36px;
-@w-value-change: 20px;
-@w-favorite: 40px;
-@w-total: @w-position + @w-position-change + @w-name + @w-rank + @w-value + @w-value-change + @w-favorite;
+@w-position: 30px;
+@w-position-change: 22px;
+@w-position-head: @w-position + @w-position-change;
+@w-name: 144px;
+@w-rank: 22px;
+@w-value: 38px;
+@w-value-change: 22px;
+@w-value-head: @w-value + @w-value-change;
+@w-favorite: 42px;
+@w-total: @w-position-head + @w-name + @w-rank + @w-value-head;
 
 .RatingListItem {
   &__Col {
-    padding: 0;
+    padding: 0 1px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -23,6 +25,10 @@
 
     &_PositionChange {
       width: percentage(@w-position-change / @w-total);
+    }
+
+    &_PositionHead {
+      width: percentage(@w-position-head / @w-total);
     }
 
     &_Name {
@@ -42,9 +48,14 @@
       width: percentage(@w-value-change / @w-total);
     }
 
+    &_ValueHead {
+      width: percentage(@w-value-head / @w-total);
+    }
+
     &_Favorite {
+      min-width: @w-favorite;
       text-align: right;
-      width: percentage(@w-favorite / @w-total);
+      width: @w-favorite;
     }
   }
 }

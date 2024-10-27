@@ -16,6 +16,7 @@ export const RatingChange = ({change}: TProps) => {
     if (0 === change) {
       return ChangeType.none;
     }
+
     if (0 < change) {
       return ChangeType.positive;
     }
@@ -28,6 +29,10 @@ export const RatingChange = ({change}: TProps) => {
 
     return classList.join(' ');
   }, [changeType]);
+
+  if (0 === change) {
+    return null;
+  }
 
   return <sub className={className}>{change}</sub>;
 };

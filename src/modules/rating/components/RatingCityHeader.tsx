@@ -22,7 +22,7 @@ export const RatingCityHeader = ({city, setCity}: TProps) => {
   return (
     <div className="RatingCityHeader">
       <NavigationButton onClick={onNavigationButtonClick}>
-        <h1>{item.title}</h1>
+        <h1 className="RatingCityHeader__Title">{item.title}</h1>
       </NavigationButton>
     </div>
   );

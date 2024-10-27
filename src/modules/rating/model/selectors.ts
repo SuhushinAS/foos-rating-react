@@ -3,5 +3,5 @@ import {rating} from 'modules/rating/model/reducers';
 import {TRatingStoreV2} from 'modules/rating/model/types';
 
 export const selectRatingStore = (state: TState): TRatingStoreV2 => {
-  return state[rating.name];
+  return state[rating.name] as TRatingStoreV2;
 };

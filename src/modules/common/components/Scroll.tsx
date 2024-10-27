@@ -42,6 +42,9 @@ function getTrackKey(dir) {
 }
 
 export class Scroll extends React.Component<TScrollProps, unknown> {
+  static defaultProps = {
+    dirList: [],
+  };
   instanceList: baron[] = [];
   isMount = false;
   references = {

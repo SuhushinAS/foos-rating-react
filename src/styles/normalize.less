@@ -27,7 +27,17 @@ body {
   .font-family-primary();
   .f_p();
 
-  color: @c-gray-80;
+  transition: background-color @animation, color @animation;
+
+  .html_light & {
+    background-color: @c-primary-10;
+    color: @c-black-5;
+  }
+
+  .html_dark & {
+    background-color: @c-primary-1;
+    color: @c-white-6;
+  }
 }
 
 h1,
@@ -91,7 +101,7 @@ textarea {
   .font-family-primary();
   .f_p();
 
-  color: @c-gray-80;
+  color: @c-gray-5;
   margin: 0;
 }
 

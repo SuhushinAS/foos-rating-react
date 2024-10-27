@@ -1,7 +1,48 @@
 @import (reference) 'src/styles/mixins';
 
 .RatingList {
-  border-collapse: collapse;
-  table-layout: fixed;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-basis: auto;
+  flex-grow: 1;
+
+  &__Head {
+    position: relative;
+    transition: background-color @animation, box-shadow @animation, color @animation;
+    z-index: 1;
+
+    .html_light & {
+      background-color: @c-primary-8;
+      box-shadow: 0 2px 5px @c-black-8;
+      color: @c-black-5;
+    }
+
+    .html_dark & {
+      background-color: @c-primary-2;
+      box-shadow: 0 0 0 transparent;
+      color: @c-white-6;
+    }
+  }
+
+  &__Body {
+    flex-basis: 0;
+    flex-grow: 1;
+    overflow: hidden;
+    transition: background-color @animation;
+
+    .html_light & {
+      background-color: @c-white;
+    }
+
+    .html_dark & {
+      background-color: @c-black;
+    }
+  }
+
+  &__Table {
+    border-collapse: collapse;
+    position: relative;
+    table-layout: fixed;
+    width: 100%;
+  }
 }

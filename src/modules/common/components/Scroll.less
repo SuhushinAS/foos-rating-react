@@ -22,22 +22,33 @@
   }
 
   &__Track {
-    background-color: fade(@c-gray-40, 25%);
-    border-radius: 4px;
-    bottom: 5px;
+    @offset: 0px;
+    @size: 3px;
+
     display: none;
     position: absolute;
-    right: 5px;
-    z-index: 9;
+    transition: background-color @animation;
+
+    .html_light & {
+      background-color: @c-black-9;
+    }
+
+    .html_dark & {
+      background-color: @c-white-5;
+    }
 
     &_h {
-      height: 6px;
-      left: 5px;
+      bottom: @offset;
+      height: @size - 2 * @offset;
+      right: @offset;
+      left: @offset;
     }
 
     &_v {
-      top: 5px;
-      width: 6px;
+      bottom: @offset;
+      right: @offset;
+      top: @offset;
+      width: @size - 2 * @offset;
     }
   }
 
@@ -50,19 +61,34 @@
   }
 
   &__Bar {
-    background-color: @c-gray-60;
-    border-radius: 3px;
-    position: absolute;
-    transition: background @animation, border-radius @animation, width @animation;
+    position: relative;
+
+    &:after {
+      @offset: 0;
+      bottom: @offset;
+      content: '';
+      display: block;
+      left: @offset;
+      position: absolute;
+      right: @offset;
+      top: @offset;
+      transition: background-color @animation;
+
+      .html_light & {
+        background-color: @c-black-8;
+      }
+
+      .html_dark & {
+        background-color: @c-white-5;
+      }
+    }
 
     &_h {
-      height: 4px;
-      top: 1px;
+      height: 100% !important;
     }
 
     &_v {
-      right: 1px;
-      width: 4px;
+      width: 100% !important;
     }
   }
 }
