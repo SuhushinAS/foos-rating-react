@@ -5,7 +5,7 @@ import {RatingList} from 'modules/rating/components/RatingList';
 import {getLoadCityKey} from 'modules/rating/lib/getLoadCityKey';
 import {useRatingsFilter} from 'modules/rating/lib/useRatingsFilter';
 import {useLoadItem} from 'modules/status/lib/useLoadItem';
-import React from 'react';
+import React, {useMemo} from 'react';
 
 type TProps = {
   city: TCity;
@@ -15,7 +15,9 @@ type TProps = {
 export const RatingCityRange = ({city, range}: TProps) => {
   const [filter] = useFilter();
   const ratings = useRatingsFilter(city, range, filter);
-  const loadKey = getLoadCityKey(city);
+  const loadKey = useMemo(() => {
+    return getLoadCityKey(city);
+  }, [city]);
   const load = useLoadItem(loadKey);
 
   if (undefined === load) {
@@ -26,7 +28,7 @@ export const RatingCityRange = ({city, range}: TProps) => {
     return <Loader />;
   }
 
-  if (undefined === ratings) {
+  if (0 === ratings.length) {
     return null;
   }
 

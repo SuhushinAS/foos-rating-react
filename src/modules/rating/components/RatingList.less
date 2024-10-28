@@ -1,5 +1,16 @@
 @import (reference) 'src/styles/mixins';
 
+@w-position: 30px;
+@w-position-change: 22px;
+@w-position-head: @w-position + @w-position-change;
+@w-name: 144px;
+@w-rank: 22px;
+@w-value: 38px;
+@w-value-change: 22px;
+@w-value-head: @w-value + @w-value-change;
+@w-favorite: 42px;
+@w-total: @w-position-head + @w-name + @w-rank + @w-value-head;
+
 .RatingList {
   display: flex;
   flex-direction: column;
@@ -44,5 +55,74 @@
     position: relative;
     table-layout: fixed;
     width: 100%;
+  }
+
+  &__Row {
+    align-items: center;
+    display: flex;
+    transition: background-color @animation, color @animation;
+
+    .html_light & {
+      color: @c-black-6;
+
+      &:nth-child(even) {
+        background-color: @c-black-10;
+      }
+    }
+
+    .html_dark & {
+      color: @c-white-5;
+
+      &:nth-child(even) {
+        background-color: fade(@c-gray-3, 50%);
+      }
+    }
+  }
+
+  &__Col {
+    overflow: hidden;
+    padding: 0 1px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &_Position {
+      flex-basis: percentage(@w-position / @w-total);
+      text-align: right;
+    }
+
+    &_PositionChange {
+      flex-basis: percentage(@w-position-change / @w-total);
+    }
+
+    &_PositionHead {
+      flex-basis: percentage(@w-position-head / @w-total);
+    }
+
+    &_Name {
+      flex-basis: percentage(@w-name / @w-total);
+    }
+
+    &_Rank {
+      flex-basis: percentage(@w-rank / @w-total);
+      text-align: center;
+    }
+
+    &_Value {
+      flex-basis: percentage(@w-value / @w-total);
+      text-align: right;
+    }
+
+    &_ValueChange {
+      flex-basis: percentage(@w-value-change / @w-total);
+    }
+
+    &_ValueHead {
+      flex-basis: percentage(@w-value-head / @w-total);
+    }
+
+    &_Favorite {
+      flex-basis: @w-favorite;
+      text-align: right;
+    }
   }
 }

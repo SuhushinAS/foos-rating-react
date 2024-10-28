@@ -1,23 +1,33 @@
 import {NavigationButton} from 'modules/navigation/components/NavigationButton';
 import {NavigationItem} from 'modules/navigation/components/NavigationItem';
 import {NavigationItemInner} from 'modules/navigation/components/NavigationItemInner';
+import 'modules/navigation/components/NavigationItemList.less';
 import {useIndexMap} from 'modules/navigation/lib/useIndexMap';
 import {useNextClick} from 'modules/navigation/lib/useNextClick';
 import {TNavigationListProps} from 'modules/navigation/model/types';
-import React from 'react';
+import React, {useCallback} from 'react';
 
-export const NavigationItemList = <T extends string | number>({list, onChange, value}: TNavigationListProps<T>) => {
+export const NavigationItemList = <T extends string | number>(props: TNavigationListProps<T>) => {
+  const {list, onChange, value} = props;
   const indexMap = useIndexMap(list);
-  const index = indexMap[value];
-  const item = list[index];
+  const currentIndex = indexMap[value];
 
-  const onNavigationButtonClick = useNextClick(list, onChange, index);
+  const onNavigationButtonClick = useNextClick(list, onChange, currentIndex);
+
+  const renderNavigationItem = useCallback(
+    (item, index) => {
+      return (
+        <NavigationItem isActive={index === currentIndex} key={item.title}>
+          <NavigationItemInner icon={item.icon} title={item.title} />
+        </NavigationItem>
+      );
+    },
+    [currentIndex]
+  );
 
   return (
     <NavigationButton onClick={onNavigationButtonClick}>
-      <NavigationItem>
-        <NavigationItemInner icon={item.icon} title={item.title} />
-      </NavigationItem>
+      <div className="NavigationItemList">{list.map(renderNavigationItem)}</div>
     </NavigationButton>
   );
 };

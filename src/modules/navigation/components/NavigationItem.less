@@ -2,10 +2,18 @@
 
 .NavigationItem {
   background-color: transparent;
-  border: 0;
-  padding: 8px 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: scale(0.5);
+  transition: opacity @animation, transform @animation;
 
   &_isActive {
-    background-color: @c-black-9;
+    opacity: 1;
+    position: relative;
+    transform: scale(1);
   }
 }

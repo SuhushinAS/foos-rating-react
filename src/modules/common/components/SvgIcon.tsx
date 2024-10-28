@@ -7,14 +7,12 @@ type TIconProps = {
 
 type TIconState = TIcon;
 
-type TImport = {
+type TImport = TIcon & {
   default: TIcon;
 };
 
 type TIcon = {
   symbol: string;
-  toString: any;
-  view: string;
   viewBox: string;
 };
 
@@ -26,7 +24,6 @@ export class SvgIcon extends React.PureComponent<TIconProps, TIconState> {
 
   state = {
     symbol: '',
-    view: '',
     viewBox: '',
   };
 
@@ -47,6 +44,7 @@ export class SvgIcon extends React.PureComponent<TIconProps, TIconState> {
 
   componentDidUpdate(props: TIconProps) {
     const {name} = this.props;
+
     if (name !== props.name) {
       this.importSvg(name);
     }
@@ -60,9 +58,14 @@ export class SvgIcon extends React.PureComponent<TIconProps, TIconState> {
     console.warn(`${this.props.name} is not found`);
   };
 
-  handleImport = (icon: TImport): void => {
+  handleImport = (result: TImport): void => {
     if (this.isMount) {
-      this.setState({...icon.default});
+      const icon: TIcon = {
+        symbol: result.symbol,
+        viewBox: result.viewBox,
+      };
+
+      this.setState(icon);
     }
   };
 
