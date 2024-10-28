@@ -14,6 +14,7 @@
     "react-redux": "^9.1.0",
     "react-router": "^6.22.1",
     "react-router-dom": "^6.22.1",
+    "react-virtualized": "^9.22.5",
     "redux": "^5.0.1",
     "svg-icon": "^0.8.2",
     "swiper": "^11.1.14"

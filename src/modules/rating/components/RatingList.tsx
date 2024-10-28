@@ -29,8 +29,8 @@ export const RatingList = ({city, ratings}: TProps) => {
       <div className="RatingList__Body">
         <Scroll dirList={dirList}>
           <div className="RatingList__Table">
-            {ratings.map((rating) => {
-              return <RatingListItem city={city} key={rating.id} rating={rating} />;
+            {ratings.map((rating, index) => {
+              return <RatingListItem city={city} key={index} rating={rating} />;
             })}
           </div>
         </Scroll>

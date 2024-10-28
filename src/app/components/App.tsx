@@ -9,16 +9,14 @@ import 'styles/index.less';
 
 export const App = () => {
   return (
-    <React.StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
-          <Layout>
-            <Routes>
-              <Route element={<Rating />} path={appPath.home} />
-            </Routes>
-          </Layout>
-        </BrowserRouter>
-      </Provider>
-    </React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route element={<Rating />} path={appPath.home} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </Provider>
   );
 };

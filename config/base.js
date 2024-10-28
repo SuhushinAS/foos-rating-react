@@ -10,36 +10,38 @@ const getPlugins = ({mode}) => {
   return [new webpack.HotModuleReplacementPlugin()];
 };
 
+const getDevServer = (options) => {
+  return {
+    historyApiFallback: true,
+    host: '0.0.0.0',
+    hot: true,
+    port: 8000,
+    proxy: [
+      {
+        changeOrigin: true,
+        context: ['/nsk'],
+        pathRewrite: {'^/nsk': ''},
+        secure: false,
+        target: 'https://dyp-nsk.gear54.me',
+      },
+      {
+        changeOrigin: true,
+        context: ['/tsk'],
+        pathRewrite: {'^/tsk': ''},
+        secure: false,
+        target: 'https://tsk.gear54.me',
+      },
+    ],
+    static: options.public,
+  };
+};
+
 module.exports = (options) => {
   const isProd = getIsProd(options.mode);
 
   return {
     bail: isProd,
-    devServer: isProd
-      ? {}
-      : {
-          historyApiFallback: true,
-          host: '0.0.0.0',
-          hot: true,
-          port: 3000,
-          proxy: [
-            {
-              changeOrigin: true,
-              context: ['/nsk'],
-              pathRewrite: {'^/nsk': ''},
-              secure: false,
-              target: 'https://dyp-nsk.gear54.me',
-            },
-            {
-              changeOrigin: true,
-              context: ['/tsk'],
-              pathRewrite: {'^/tsk': ''},
-              secure: false,
-              target: 'https://tsk.gear54.me',
-            },
-          ],
-          static: options.public,
-        },
+    devServer: getDevServer(options),
     devtool: isProd ? false : 'eval-source-map',
     entry: 'index.tsx',
     mode: options.mode,

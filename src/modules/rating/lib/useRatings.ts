@@ -6,6 +6,6 @@ export const useRatings = (city: TCity, range: TRange) => {
   const ratingRange = useRatingRange(city, range);
 
   return useMemo(() => {
-    return ratingRange?.ratings ?? [];
+    return ratingRange?.ratings;
   }, [ratingRange]);
 };

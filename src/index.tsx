@@ -7,11 +7,19 @@ const container = document.getElementById('root');
 if (container) {
   const root = createRoot(container);
 
-  root.render(<App />);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
 
   if (module.hot) {
     module.hot.accept('app/components/App', () => {
-      root.render(<App />);
+      root.render(
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      );
     });
   }
 }

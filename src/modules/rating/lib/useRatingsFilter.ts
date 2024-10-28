@@ -31,6 +31,10 @@ export const useRatingsFilter = (city: TCity, range: TRange, filter: TFilter): T
   const favorite = useFavorite(city);
 
   return useMemo(() => {
+    if (ratings === undefined) {
+      return [];
+    }
+
     return getFilterRatings(ratings, filter, favorite);
   }, [favorite, filter, ratings]);
 };

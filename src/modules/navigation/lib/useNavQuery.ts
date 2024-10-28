@@ -10,7 +10,6 @@ export const useNavQuery = <T extends keyof TNavigation>(
   const navQuery = useMemo(() => {
     return searchParams.get(name) as TNavigation[T];
   }, [name, searchParams]);
-  console.log({action: 'useNavQuery', name, value: navQuery});
 
   const setNavQuery = useCallback(
     (value: TNavigation[T]) => {
