@@ -4,7 +4,7 @@ import {NavigationItemInner} from 'modules/navigation/components/NavigationItemI
 import 'modules/navigation/components/NavigationItemList.less';
 import {useIndexMap} from 'modules/navigation/lib/useIndexMap';
 import {useNextClick} from 'modules/navigation/lib/useNextClick';
-import {TNavigationListProps} from 'modules/navigation/model/types';
+import {TNavigationItem, TNavigationListProps} from 'modules/navigation/model/types';
 import React, {useCallback} from 'react';
 
 export const NavigationItemList = <T extends string | number>(props: TNavigationListProps<T>) => {
@@ -15,10 +15,10 @@ export const NavigationItemList = <T extends string | number>(props: TNavigation
   const onNavigationButtonClick = useNextClick(list, onChange, currentIndex);
 
   const renderNavigationItem = useCallback(
-    (item, index) => {
+    (item: TNavigationItem<T>, index: number) => {
       return (
         <NavigationItem isActive={index === currentIndex} key={item.title}>
-          <NavigationItemInner icon={item.icon} title={item.title} />
+          <NavigationItemInner description={item.description} icon={item.icon} title={item.title} />
         </NavigationItem>
       );
     },

@@ -29,7 +29,6 @@ export type TRatingCityData = {
 };
 
 export type TRatingCity = {
-  favorite: TFavorite;
   lastEvent: TLastEvent;
   rangeData: TRatingRangeData;
   seasonStartDate: string;

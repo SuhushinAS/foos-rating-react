@@ -8,12 +8,18 @@
   position: absolute;
   right: 0;
   top: 0;
-  transform: scale(0.5);
+  transform: scale(0.7);
   transition: opacity @animation, transform @animation;
+  will-change: opacity, transform;
 
   &_isActive {
     opacity: 1;
     position: relative;
     transform: scale(1);
+  }
+
+  &_isCurrent {
+    opacity: 1;
+    position: relative;
   }
 }

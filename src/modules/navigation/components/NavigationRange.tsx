@@ -4,7 +4,7 @@ import {NavigationItemList} from 'modules/navigation/components/NavigationItemLi
 import {getIndexMap} from 'modules/navigation/lib/useIndexMap';
 import {useRange} from 'modules/navigation/lib/useRange';
 import {rangeList} from 'modules/navigation/model/constants';
-import {TRange} from 'modules/navigation/model/types';
+import {TCity, TRange} from 'modules/navigation/model/types';
 import {useSeasonStartDate} from 'modules/rating/lib/useSeasonStartDate';
 import React, {useMemo} from 'react';
 
@@ -24,7 +24,7 @@ export const NavigationRange = ({city}: Props) => {
     const index = indexMap[TRange.season];
     const range = listDate[index];
 
-    listDate[index] = {...range, title: dateFormat};
+    listDate[index] = {...range, description: dateFormat};
 
     return listDate;
   }, [dateFormat]);

@@ -62,7 +62,7 @@ export const useStorageInit = () => {
     }
 
     setIsInit(true);
-  }, [dispatch]);
+  }, [dispatch, setFilter, setRange, setScheme]);
 
   useEffect(() => {
     if (isInit) {

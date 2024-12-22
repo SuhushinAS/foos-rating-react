@@ -37,12 +37,14 @@ export const NavigationItemScheme = () => {
   }, [deviceScheme, scheme]);
 
   useEffect(() => {
-    html.classList.remove(classNames[TSchemeV2.dark], classNames[TSchemeV2.light]);
+    if (null !== html) {
+      html.classList.remove(classNames[TSchemeV2.dark], classNames[TSchemeV2.light]);
 
-    const className = classNames[schemeCurrent];
+      const className = classNames[schemeCurrent];
 
-    if (className) {
-      html.classList.add(className);
+      if (className) {
+        html.classList.add(className);
+      }
     }
   }, [schemeCurrent]);
 

@@ -7,9 +7,7 @@ export const NavigationToggleList = <T extends string | number>({list, onChange,
   return (
     <>
       {list.map((item) => {
-        return (
-          <NavigationItemToggle currentValue={value} icon={item.icon} key={item.value} onChange={onChange} title={item.title} value={item.value} />
-        );
+        return <NavigationItemToggle item={item} key={item.value} onChange={onChange} value={value} />;
       })}
     </>
   );

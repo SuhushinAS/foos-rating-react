@@ -4,9 +4,10 @@ import React, {useMemo} from 'react';
 type TProps = {
   children: React.ReactNode;
   isActive?: boolean;
+  isCurrent?: boolean;
 };
 
-export const NavigationItem = ({children, isActive = false}: TProps) => {
+export const NavigationItem = ({children, isActive = false, isCurrent = false}: TProps) => {
   const className = useMemo(() => {
     const classList = ['NavigationItem'];
 
@@ -14,8 +15,12 @@ export const NavigationItem = ({children, isActive = false}: TProps) => {
       classList.push('NavigationItem_isActive');
     }
 
+    if (isCurrent) {
+      classList.push('NavigationItem_isCurrent');
+    }
+
     return classList.join(' ');
-  }, [isActive]);
+  }, [isActive, isCurrent]);
 
   return <div className={className}>{children}</div>;
 };

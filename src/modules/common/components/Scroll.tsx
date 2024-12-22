@@ -8,7 +8,7 @@ type TScrollProps = {
   dirList: TDirection[];
 };
 
-type TDirection = 'h' | 'v';
+export type TDirection = 'h' | 'v';
 
 function getScrollbarWidth() {
   const outer = document.createElement('div');
@@ -71,6 +71,10 @@ export class Scroll extends React.Component<TScrollProps, unknown> {
   };
 
   render() {
+    if (!needCustomScrollbar) {
+      return this.props.children;
+    }
+
     return (
       <div className="Scroll" ref={this.references.scroll}>
         <div className="Scroll__Scroller" ref={this.references.scroller}>

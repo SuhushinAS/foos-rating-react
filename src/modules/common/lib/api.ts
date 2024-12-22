@@ -1,3 +1,6 @@
+type FetchParams = Parameters<typeof fetch>;
+type RequestInit = FetchParams[1];
+
 export class Api {
   static options = {
     headers: {
@@ -25,7 +28,7 @@ export class Api {
   }
 
   fetch<T>(url = '', options = {}): Promise<T> {
-    return fetch(url, this.getOptions(options)).then(this.getJSON);
+    return fetch(url, this.getOptions(options)).then<T>(this.getJSON);
   }
 
   requestLocal<T>(url = ''): Promise<T> {

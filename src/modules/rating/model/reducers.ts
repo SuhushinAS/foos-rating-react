@@ -14,7 +14,7 @@ export const rating = createSlice({
     init: (state, {payload}: PayloadAction<Partial<TRatingStoreV2>>) => {
       return {...state, ...payload};
     },
-    load: (state, {payload}: PayloadAction<{city: TCity; cityData: Partial<TRatingCity>}>) => {
+    load: (state, {payload}: PayloadAction<{city: TCity; cityData: TRatingCity}>) => {
       const {city, cityData} = payload;
 
       state.cityData[city] = {
@@ -41,7 +41,7 @@ export const rating = createSlice({
 
       return state;
     },
-    setRating: (state, {payload}: PayloadAction<{city: TCity; rating: Partial<TRatingCity>}>) => {
+    setRating: (state, {payload}: PayloadAction<{city: TCity; rating: TRatingCity}>) => {
       const {city, rating} = payload;
 
       state.cityData[city] = rating;

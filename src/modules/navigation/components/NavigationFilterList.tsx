@@ -1,6 +1,6 @@
 import {useDateFormat} from 'modules/common/lib/useDateFormat';
 import 'modules/navigation/components/Navigation.less';
-import {NavigationToggleList} from 'modules/navigation/components/NavigationToggleList';
+import {NavigationItemList} from 'modules/navigation/components/NavigationItemList';
 import {useFilter} from 'modules/navigation/lib/useFilter';
 import {getIndexMap} from 'modules/navigation/lib/useIndexMap';
 import {filterList} from 'modules/navigation/model/constants';
@@ -24,10 +24,10 @@ export const NavigationFilterList = ({city}: Props) => {
     const index = indexMap[TFilter.last];
     const filter = listDate[index];
 
-    listDate[index] = {...filter, title: dateFormat};
+    listDate[index] = {...filter, description: dateFormat};
 
     return listDate;
   }, [dateFormat]);
 
-  return <NavigationToggleList<TFilter> list={listDate} onChange={setFilter} value={filter} />;
+  return <NavigationItemList<TFilter> list={listDate} onChange={setFilter} value={filter} />;
 };

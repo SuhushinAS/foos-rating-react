@@ -1,4 +1,4 @@
-import {Scroll} from 'modules/common/components/Scroll';
+import {Scroll, TDirection} from 'modules/common/components/Scroll';
 import {TCity} from 'modules/navigation/model/types';
 import {RatingListItem} from 'modules/rating/components/RatingListItem';
 import {TRating} from 'modules/rating/model/types';
@@ -10,7 +10,7 @@ type TProps = {
   ratings: TRating[];
 };
 
-const dirList = ['v'] as const;
+const dirList: TDirection[] = ['v'];
 
 export const RatingList = ({city, ratings}: TProps) => {
   return (

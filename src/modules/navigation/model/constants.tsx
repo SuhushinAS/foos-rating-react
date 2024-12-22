@@ -1,5 +1,13 @@
 import {SvgIcon} from 'modules/common/components/SvgIcon';
-import {TCity, TFilter, TNavigation, TNavigationItem, TRange, TSchemeV1, TSchemeV2} from 'modules/navigation/model/types';
+import {
+  TCity,
+  TFilter,
+  TNavigation,
+  TNavigationItem,
+  TRange,
+  TSchemeV1,
+  TSchemeV2,
+} from 'modules/navigation/model/types';
 import React from 'react';
 
 export const defaultValues: TNavigation = {
@@ -17,11 +25,13 @@ export const schemeMap = {
 
 export const cityList: TNavigationItem<TCity>[] = [
   {
+    description: '\u00A0',
     icon: <SvgIcon name="map-marker" />,
     title: 'Новосибирск',
     value: TCity.nsk,
   },
   {
+    description: '\u00A0',
     icon: <SvgIcon name="map-marker" />,
     title: 'Томск',
     value: TCity.tsk,
@@ -30,16 +40,19 @@ export const cityList: TNavigationItem<TCity>[] = [
 
 export const filterList: TNavigationItem<TFilter>[] = [
   {
+    description: '\u00A0',
     icon: <SvgIcon name="group" />,
     title: 'Все',
     value: TFilter.none,
   },
   {
+    description: '\u00A0',
     icon: <SvgIcon name="futbol-o" />,
     title: 'Последние',
     value: TFilter.last,
   },
   {
+    description: '\u00A0',
     icon: <SvgIcon name="star" />,
     title: 'Избранные',
     value: TFilter.favorite,
@@ -48,11 +61,13 @@ export const filterList: TNavigationItem<TFilter>[] = [
 
 export const rangeList: TNavigationItem<TRange>[] = [
   {
+    description: '\u00A0',
     icon: <SvgIcon name="calendar-o" />,
     title: 'Общий',
     value: TRange.full,
   },
   {
+    description: '\u00A0',
     icon: <SvgIcon name="calendar" />,
     title: 'Сезонный',
     value: TRange.season,
@@ -61,16 +76,19 @@ export const rangeList: TNavigationItem<TRange>[] = [
 
 export const schemeList: TNavigationItem<TSchemeV2>[] = [
   {
+    description: '\u00A0',
     icon: <SvgIcon name="adjust" />,
     title: 'Авто',
     value: TSchemeV2.auto,
   },
   {
+    description: '\u00A0',
     icon: <SvgIcon name="moon-o" />,
     title: 'Тёмная',
     value: TSchemeV2.dark,
   },
   {
+    description: '\u00A0',
     icon: <SvgIcon name="sun-o" />,
     title: 'Светлая',
     value: TSchemeV2.light,

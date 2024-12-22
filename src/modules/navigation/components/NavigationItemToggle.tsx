@@ -1,28 +1,27 @@
 import {NavigationButton} from 'modules/navigation/components/NavigationButton';
 import {NavigationItem} from 'modules/navigation/components/NavigationItem';
 import {NavigationItemInner} from 'modules/navigation/components/NavigationItemInner';
+import {TNavigationItem} from 'modules/navigation/model/types';
 import React, {useCallback} from 'react';
 
-type TProps = {
-  icon?: React.ReactNode;
-  title?: React.ReactNode;
-  currentValue: string | number;
-  onChange: (value: string | number) => void;
-  value: string | number;
+type TProps<T extends string | number> = {
+  item: TNavigationItem<T>;
+  onChange: (value: T) => void;
+  value: T;
 };
 
-export const NavigationItemToggle = (props: TProps) => {
-  const {currentValue, icon, onChange, title, value} = props;
-  const isActive = currentValue === value;
+export const NavigationItemToggle = <T extends string | number>(props: TProps<T>) => {
+  const {item, onChange, value} = props;
+  const isActive = item.value === value;
 
   const onNavigationButtonClick = useCallback(() => {
-    onChange(value);
-  }, [value, onChange]);
+    onChange(item.value);
+  }, [item.value, onChange]);
 
   return (
-    <NavigationButton onClick={onNavigationButtonClick}>
-      <NavigationItem isActive={isActive}>
-        <NavigationItemInner icon={icon} title={title} />
+    <NavigationButton disabled={isActive} onClick={onNavigationButtonClick}>
+      <NavigationItem isActive={isActive} isCurrent={true}>
+        <NavigationItemInner description={item.description} icon={item.icon} title={item.title} />
       </NavigationItem>
     </NavigationButton>
   );

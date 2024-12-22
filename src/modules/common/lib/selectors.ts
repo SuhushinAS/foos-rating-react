@@ -5,7 +5,7 @@ type TGetList = <T = TItem>(data: TMap<T>, list: string[]) => T[];
 export const getList: TGetList = (data, list) => list.map((id) => data[id]);
 
 export const compare = (value1: unknown, value2: unknown, path: string[] = []): any => {
-  if (value1 === value2) {
+  if (value1 === value2 || null === value1 || null === value2) {
     return {};
   }
 

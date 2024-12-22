@@ -3,12 +3,13 @@ import React from 'react';
 
 type TProps = {
   children: React.ReactNode;
+  disabled?: boolean;
   onClick: () => void;
 };
 
-export const NavigationButton = ({children, onClick}: TProps) => {
+export const NavigationButton = ({children, disabled, onClick}: TProps) => {
   return (
-    <button className="NavigationButton" onClick={onClick} type="button">
+    <button className="NavigationButton" disabled={disabled} onClick={onClick} type="button">
       {children}
     </button>
   );

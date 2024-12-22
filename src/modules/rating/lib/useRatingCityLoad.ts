@@ -3,7 +3,7 @@ import {api} from 'modules/common/lib/api';
 import {TCity, TRange} from 'modules/navigation/model/types';
 import {getLoadCityKey} from 'modules/rating/lib/getLoadCityKey';
 import {ratingActions} from 'modules/rating/model/reducers';
-import {TRatingCity, TRatingDataAPI, TRatingSeasonDataAPI} from 'modules/rating/model/types';
+import {TRatingAPI, TRatingCity, TRatingDataAPI, TRatingSeasonDataAPI} from 'modules/rating/model/types';
 import {useLoadItem} from 'modules/status/lib/useLoadItem';
 import {statusActions} from 'modules/status/model/reducers';
 import {useEffect} from 'react';
@@ -16,7 +16,7 @@ const cityMap = {
 const PATH_FULL = '/api/ratings';
 const PATH_SEASON = '/api/ratings/season';
 
-const getRating = (rating, index) => {
+const getRating = (rating: TRatingAPI, index: number) => {
   return {
     ...rating,
     position: index + 1,
@@ -36,25 +36,28 @@ export const useRatingCityLoad = (city: TCity) => {
 
       dispatch(statusActions.loadStart(loadKey));
 
-      Promise.all([api.request<TRatingDataAPI>(urlRatingsFull), api.request<TRatingSeasonDataAPI>(urlRatingsSeason)]).then(([full, season]) => {
-        const rating: Partial<TRatingCity> = {
-          lastEvent: full.lastEvent,
-          rangeData: {
-            [TRange.full]: {
-              eventsTotal: full.eventsTotal,
-              ratings: full.ratings.map(getRating),
+      Promise.all([api.request<TRatingDataAPI>(urlRatingsFull), api.request<TRatingSeasonDataAPI>(urlRatingsSeason)])
+        .then(([full, season]) => {
+          const rating: TRatingCity = {
+            lastEvent: full.lastEvent,
+            rangeData: {
+              [TRange.full]: {
+                eventsTotal: full.eventsTotal,
+                ratings: full.ratings.map(getRating),
+              },
+              [TRange.season]: {
+                eventsTotal: season.eventsTotal,
+                ratings: season.ratings.map(getRating),
+              },
             },
-            [TRange.season]: {
-              eventsTotal: season.eventsTotal,
-              ratings: season.ratings.map(getRating),
-            },
-          },
-          seasonStartDate: season.seasonStartDate,
-        };
+            seasonStartDate: season.seasonStartDate,
+          };
 
-        dispatch(ratingActions.setRating({city, rating}));
-        dispatch(statusActions.loadStop(loadKey));
-      });
+          dispatch(ratingActions.setRating({city, rating}));
+        })
+        .finally(() => {
+          dispatch(statusActions.loadStop(loadKey));
+        });
     }
   }, [city, dispatch, load, loadKey]);
 };

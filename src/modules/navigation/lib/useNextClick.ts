@@ -1,11 +1,23 @@
-import {TNavigation, TNavigationItem} from 'modules/navigation/model/types';
-import {useCallback} from 'react';
+import {TNavigationItem} from 'modules/navigation/model/types';
+import {useCallback, useRef} from 'react';
 
-export const useNextClick = <T>(list: TNavigationItem<T>[], onChange: (value: TNavigation[T]) => void, index: number) => {
+export const useNextClick = <T extends string | number>(
+  list: TNavigationItem<T>[],
+  onChange: (value: T) => void,
+  index: number
+) => {
+  const timerId = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   return useCallback(() => {
-    const indexNext = (index + 1) % list.length;
-    const itemNext = list[indexNext];
+    if (null !== timerId.current) {
+      clearTimeout(timerId.current);
+    }
 
-    onChange(itemNext.value);
+    timerId.current = setTimeout(() => {
+      const indexNext = (index + 1) % list.length;
+      const itemNext = list[indexNext];
+
+      onChange(itemNext.value);
+    });
   }, [index, list, onChange]);
 };
