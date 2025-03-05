@@ -19,4 +19,16 @@
   &__NoWrap {
     white-space: nowrap;
   }
+
+  &__Star {
+    transition: color @animation;
+
+    .html_light & {
+      color: @c-primary-4;
+    }
+
+    .html_dark & {
+      color: @c-primary-3;
+    }
+  }
 }

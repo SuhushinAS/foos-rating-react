@@ -16,7 +16,11 @@ export const RatingListEmpty = ({city, filter}: TProps) => {
     if (favorite === undefined) {
       return (
         <h4 className="RatingListEmpty">
-          Отметь игроков <SvgIcon name="star" />, чтобы следить за&nbsp;их&nbsp;результатами
+          Отметь игроков{' '}
+          <span className="RatingListEmpty__Star">
+            <SvgIcon name="star" />
+          </span>
+          , чтобы следить за&nbsp;их&nbsp;результатами
         </h4>
       );
     }
