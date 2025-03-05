@@ -12,7 +12,7 @@ type TProps = {
 };
 
 export const RatingCity = ({city, setCity}: TProps) => {
-  const [range] = useRange();
+  const range = useRange();
 
   useRatingCityLoad(city);
 

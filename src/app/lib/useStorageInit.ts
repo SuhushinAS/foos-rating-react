@@ -1,7 +1,7 @@
 import {useAppDispatch, useAppSelector} from 'app/lib/hooks';
-import {useFilter} from 'modules/navigation/lib/useFilter';
-import {useRange} from 'modules/navigation/lib/useRange';
-import {useScheme} from 'modules/navigation/lib/useScheme';
+import {useSetFilter} from 'modules/navigation/lib/useSetFilter';
+import {useSetRange} from 'modules/navigation/lib/useSetRange';
+import {useSetScheme} from 'modules/navigation/lib/useSetScheme';
 import {schemeMap} from 'modules/navigation/model/constants';
 import {TCity, TFilter, TRange} from 'modules/navigation/model/types';
 import {storageKeyV1, storageKeyV2} from 'modules/rating/model/constants';
@@ -13,9 +13,9 @@ import {useEffect, useState} from 'react';
 export const useStorageInit = () => {
   const rating = useAppSelector(selectRatingStore);
   const dispatch = useAppDispatch();
-  const [, setFilter] = useFilter();
-  const [, setRange] = useRange();
-  const [, setScheme] = useScheme();
+  const setFilter = useSetFilter();
+  const setRange = useSetRange();
+  const setScheme = useSetScheme();
   const [isInit, setIsInit] = useState(false);
 
   useEffect(() => {

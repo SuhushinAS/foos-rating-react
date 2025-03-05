@@ -1,5 +1,6 @@
-import {useNavQuery} from 'modules/navigation/lib/useNavQuery';
+import {useAppSelector} from 'app/lib/hooks';
+import {selectNavigationRange} from 'modules/navigation/model/selectors';
 
 export const useRange = () => {
-  return useNavQuery('range');
+  return useAppSelector(selectNavigationRange);
 };

@@ -13,7 +13,7 @@ type TProps = {
 };
 
 export const RatingCityRange = ({city, range}: TProps) => {
-  const [filter] = useFilter();
+  const filter = useFilter();
   const ratings = useRatingsFilter(city, range, filter);
 
   const loadKey = useLoadCityKey(city);

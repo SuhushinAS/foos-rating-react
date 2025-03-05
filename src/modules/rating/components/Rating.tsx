@@ -1,11 +1,13 @@
 import {useStorageInit} from 'app/lib/useStorageInit';
 import {useCity} from 'modules/navigation/lib/useCity';
+import {useSetCity} from 'modules/navigation/lib/useSetCity';
 import {RatingCity} from 'modules/rating/components/RatingCity';
 import React from 'react';
 import './Rating.less';
 
 export const Rating = () => {
-  const [city, setCity] = useCity();
+  const city = useCity();
+  const setCity = useSetCity();
 
   useStorageInit();
 

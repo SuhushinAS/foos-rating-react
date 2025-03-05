@@ -1,5 +1,6 @@
-import {useNavQuery} from 'modules/navigation/lib/useNavQuery';
+import {useAppSelector} from 'app/lib/hooks';
+import {selectNavigationCity} from 'modules/navigation/model/selectors';
 
 export const useCity = () => {
-  return useNavQuery('city');
+  return useAppSelector(selectNavigationCity);
 };

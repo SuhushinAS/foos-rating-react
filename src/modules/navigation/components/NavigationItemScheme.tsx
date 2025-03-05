@@ -1,5 +1,6 @@
 import {NavigationList} from 'modules/navigation/components/NavigationList';
 import {useScheme} from 'modules/navigation/lib/useScheme';
+import {useSetScheme} from 'modules/navigation/lib/useSetScheme';
 import {schemeList} from 'modules/navigation/model/constants';
 import {TSchemeV2} from 'modules/navigation/model/types';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
@@ -21,7 +22,8 @@ const getDeviceSchemeChange = () => {
 };
 
 export const NavigationItemScheme = () => {
-  const [scheme, setScheme] = useScheme();
+  const scheme = useScheme();
+  const setScheme = useSetScheme();
   const [deviceScheme, setDeviceScheme] = useState(getDeviceSchemeChange);
 
   const onDeviceSchemeChange = useCallback(() => {

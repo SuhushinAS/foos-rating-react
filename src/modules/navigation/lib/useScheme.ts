@@ -1,5 +1,6 @@
-import {useNavQuery} from 'modules/navigation/lib/useNavQuery';
+import {useAppSelector} from 'app/lib/hooks';
+import {selectNavigationScheme} from 'modules/navigation/model/selectors';
 
 export const useScheme = () => {
-  return useNavQuery('scheme');
+  return useAppSelector(selectNavigationScheme);
 };
