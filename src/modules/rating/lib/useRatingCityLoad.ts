@@ -1,7 +1,7 @@
 import {useAppDispatch} from 'app/lib/hooks';
 import {api} from 'modules/common/lib/api';
 import {TCity, TRange} from 'modules/navigation/model/types';
-import {getLoadCityKey} from 'modules/rating/lib/getLoadCityKey';
+import {useLoadCityKey} from 'modules/rating/lib/useLoadCityKey';
 import {ratingActions} from 'modules/rating/model/reducers';
 import {TRatingAPI, TRatingCity, TRatingDataAPI, TRatingSeasonDataAPI} from 'modules/rating/model/types';
 import {useLoadItem} from 'modules/status/lib/useLoadItem';
@@ -25,7 +25,7 @@ const getRating = (rating: TRatingAPI, index: number) => {
 
 export const useRatingCityLoad = (city: TCity) => {
   const dispatch = useAppDispatch();
-  const loadKey = getLoadCityKey(city);
+  const loadKey = useLoadCityKey(city);
   const load = useLoadItem(loadKey);
 
   useEffect(() => {

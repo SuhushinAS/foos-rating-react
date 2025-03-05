@@ -31,7 +31,7 @@ body {
 
   .html_light & {
     background-color: @c-white;
-    color: @c-black-5;
+    color: @c-black-6;
   }
 
   .html_dark & {
@@ -101,8 +101,16 @@ textarea {
   .font-family-primary();
   .f_p();
 
-  color: @c-gray-5;
   margin: 0;
+  transition: color @animation;
+
+  .html_light & {
+    color: @c-black-6;
+  }
+
+  .html_dark & {
+    color: @c-white-6;
+  }
 }
 
 input,

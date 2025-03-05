@@ -2,7 +2,6 @@ import {useStorageInit} from 'app/lib/useStorageInit';
 import {useCity} from 'modules/navigation/lib/useCity';
 import {RatingCity} from 'modules/rating/components/RatingCity';
 import React from 'react';
-import 'swiper/css';
 import './Rating.less';
 
 export const Rating = () => {

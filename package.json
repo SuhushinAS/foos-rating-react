@@ -19,7 +19,7 @@
     "svg-icon": "^0.8.2",
     "swiper": "^11.1.14"
   },
-  "description": "reactStarterKit",
+  "description": "Foos Rating React",
   "devDependencies": {
     "@babel/cli": "^7.23.9",
     "@babel/core": "^7.23.9",
@@ -82,7 +82,7 @@
     }
   },
   "keywords": [
-    "reactStarterKit"
+    "Foos Rating React"
   ],
   "license": "UNLICENSED",
   "lint-staged": {
@@ -93,11 +93,11 @@
       "eslint --fix"
     ]
   },
-  "name": "react-starter-kit",
+  "name": "foos-rating-react",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git@github.com:SuhushinAS/react-starter-kit.git"
+    "url": "git@github.com:SuhushinAS/foos-rating-react.git"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --mode=production",

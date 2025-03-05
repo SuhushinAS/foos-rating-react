@@ -1,0 +1,22 @@
+@import (reference) 'src/styles/mixins';
+
+.RatingListEmpty {
+  color: @c-white-5;
+  margin: auto;
+  padding: 16px;
+  text-align: center;
+
+  transition: color @animation;
+
+  .html_light & {
+    color: @c-black-7;
+  }
+
+  .html_dark & {
+    color: @c-white-5;
+  }
+
+  &__NoWrap {
+    white-space: nowrap;
+  }
+}

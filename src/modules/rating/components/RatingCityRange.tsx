@@ -2,10 +2,10 @@ import {Loader} from 'modules/common/components/Loader';
 import {useFilter} from 'modules/navigation/lib/useFilter';
 import {TCity, TRange} from 'modules/navigation/model/types';
 import {RatingList} from 'modules/rating/components/RatingList';
-import {getLoadCityKey} from 'modules/rating/lib/getLoadCityKey';
+import {useLoadCityKey} from 'modules/rating/lib/useLoadCityKey';
 import {useRatingsFilter} from 'modules/rating/lib/useRatingsFilter';
 import {useLoadItem} from 'modules/status/lib/useLoadItem';
-import React, {useMemo} from 'react';
+import React from 'react';
 
 type TProps = {
   city: TCity;
@@ -15,22 +15,14 @@ type TProps = {
 export const RatingCityRange = ({city, range}: TProps) => {
   const [filter] = useFilter();
   const ratings = useRatingsFilter(city, range, filter);
-  const loadKey = useMemo(() => {
-    return getLoadCityKey(city);
-  }, [city]);
+
+  const loadKey = useLoadCityKey(city);
   const load = useLoadItem(loadKey);
+  const loading = load ?? true;
 
-  if (undefined === load) {
-    return null;
-  }
-
-  if (load) {
-    return <Loader />;
-  }
-
-  if (0 === ratings.length) {
-    return null;
-  }
-
-  return <RatingList city={city} ratings={ratings} />;
+  return (
+    <Loader loading={loading}>
+      <RatingList city={city} filter={filter} ratings={ratings} />
+    </Loader>
+  );
 };

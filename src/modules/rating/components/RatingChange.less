@@ -1,10 +1,11 @@
 @import (reference) 'src/styles/mixins';
 
 .RatingChange {
+  @fade: 90%;
   font-size: 12px;
 
   &_negative {
-    color: @c-rate-5;
+    color: fade(@c-rate2-5, @fade);
   }
 
   &_none {
@@ -12,6 +13,6 @@
   }
 
   &_positive {
-    color: @c-rate-1;
+    color: fade(@c-rate2-1, @fade);
   }
 }

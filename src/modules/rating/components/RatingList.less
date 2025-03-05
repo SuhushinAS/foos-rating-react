@@ -1,65 +1,37 @@
 @import (reference) 'src/styles/mixins';
 
 @w-position: 30px;
-@w-position-change: 22px;
-@w-position-head: @w-position + @w-position-change;
-@w-name: 144px;
-@w-rank: 22px;
-@w-value: 38px;
-@w-value-change: 22px;
-@w-value-head: @w-value + @w-value-change;
-@w-favorite: 42px;
-@w-total: @w-position-head + @w-name + @w-rank + @w-value-head;
+@w-change: 30px;
+@w-name: 129px;
+@w-rank: 53px;
+@w-value: 39px;
+@w-favorite: 49px;
+@w-total: @w-position + @w-change + @w-name + @w-rank + @w-value + @w-change + @w-favorite;
+
+.get-width(@width) {
+  flex-basis: percentage(@width / @w-total);
+}
 
 .RatingList {
   display: flex;
   flex-direction: column;
-  flex-basis: auto;
+  flex-basis: 0;
   flex-grow: 1;
+  overflow: auto;
+  transition: background-color @animation;
 
-  &__Head {
-    position: relative;
-    transition: background-color @animation, box-shadow @animation, color @animation;
-    z-index: 1;
-
-    .html_light & {
-      background-color: @c-primary-8;
-      box-shadow: 0 2px 5px @c-black-8;
-      color: @c-black-5;
-    }
-
-    .html_dark & {
-      background-color: @c-primary-2;
-      box-shadow: 0 0 0 transparent;
-      color: @c-white-6;
-    }
+  .html_light & {
+    background-color: @c-white;
   }
 
-  &__Body {
-    flex-basis: 0;
-    flex-grow: 1;
-    overflow: auto;
-    transition: background-color @animation;
-
-    .html_light & {
-      background-color: @c-white;
-    }
-
-    .html_dark & {
-      background-color: @c-black;
-    }
-  }
-
-  &__Table {
-    border-collapse: collapse;
-    position: relative;
-    table-layout: fixed;
-    width: 100%;
+  .html_dark & {
+    background-color: @c-black;
   }
 
   &__Row {
     align-items: center;
     display: flex;
+    height: 48px;
     transition: background-color @animation, color @animation;
 
     .html_light & {
@@ -71,7 +43,7 @@
     }
 
     .html_dark & {
-      color: @c-white-5;
+      color: @c-white-6;
 
       &:nth-child(even) {
         background-color: fade(@c-gray-3, 50%);
@@ -80,44 +52,36 @@
   }
 
   &__Col {
+    font-weight: 500;
     overflow: hidden;
-    padding: 0 1px;
+    padding-left: 2px;
     text-overflow: ellipsis;
     white-space: nowrap;
 
     &_Position {
-      flex-basis: percentage(@w-position / @w-total);
+      .get-width(@w-position);
       text-align: right;
     }
 
-    &_PositionChange {
-      flex-basis: percentage(@w-position-change / @w-total);
-    }
-
-    &_PositionHead {
-      flex-basis: percentage(@w-position-head / @w-total);
-    }
-
     &_Name {
-      flex-basis: percentage(@w-name / @w-total);
+      .get-width(@w-name);
+
+      flex-grow: 1;
     }
 
     &_Rank {
-      flex-basis: percentage(@w-rank / @w-total);
+      .get-width(@w-rank);
+
       text-align: center;
     }
 
     &_Value {
-      flex-basis: percentage(@w-value / @w-total);
+      .get-width(@w-value);
       text-align: right;
     }
 
-    &_ValueChange {
-      flex-basis: percentage(@w-value-change / @w-total);
-    }
-
-    &_ValueHead {
-      flex-basis: percentage(@w-value-head / @w-total);
+    &_Change {
+      .get-width(@w-change);
     }
 
     &_Favorite {

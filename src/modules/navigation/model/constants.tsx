@@ -25,72 +25,62 @@ export const schemeMap = {
 
 export const cityList: TNavigationItem<TCity>[] = [
   {
-    description: '\u00A0',
     icon: <SvgIcon name="map-marker" />,
-    title: 'Новосибирск',
+    title: 'Nsk',
     value: TCity.nsk,
   },
   {
-    description: '\u00A0',
     icon: <SvgIcon name="map-marker" />,
-    title: 'Томск',
+    title: 'Tsk',
     value: TCity.tsk,
   },
 ];
 
 export const filterList: TNavigationItem<TFilter>[] = [
   {
-    description: '\u00A0',
     icon: <SvgIcon name="group" />,
-    title: 'Все',
+    title: 'Все игроки',
     value: TFilter.none,
   },
   {
-    description: '\u00A0',
     icon: <SvgIcon name="futbol-o" />,
-    title: 'Последние',
+    title: 'Последняя игра',
     value: TFilter.last,
   },
   {
-    description: '\u00A0',
     icon: <SvgIcon name="star" />,
-    title: 'Избранные',
+    title: 'Избранные игроки',
     value: TFilter.favorite,
   },
 ];
 
 export const rangeList: TNavigationItem<TRange>[] = [
   {
-    description: '\u00A0',
     icon: <SvgIcon name="calendar-o" />,
-    title: 'Общий',
+    title: 'Общий рейтинг',
     value: TRange.full,
   },
   {
-    description: '\u00A0',
     icon: <SvgIcon name="calendar" />,
-    title: 'Сезонный',
+    title: 'Сезоный рейтинг',
     value: TRange.season,
   },
 ];
 
 export const schemeList: TNavigationItem<TSchemeV2>[] = [
   {
-    description: '\u00A0',
     icon: <SvgIcon name="adjust" />,
-    title: 'Авто',
+    title: 'Авто тема',
     value: TSchemeV2.auto,
   },
   {
-    description: '\u00A0',
     icon: <SvgIcon name="moon-o" />,
-    title: 'Тёмная',
+    title: 'Тёмная тема',
     value: TSchemeV2.dark,
   },
   {
-    description: '\u00A0',
     icon: <SvgIcon name="sun-o" />,
-    title: 'Светлая',
+    title: 'Светлая тема',
     value: TSchemeV2.light,
   },
 ];

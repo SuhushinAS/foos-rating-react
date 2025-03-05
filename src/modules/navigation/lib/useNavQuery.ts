@@ -8,13 +8,17 @@ export const useNavQuery = <T extends keyof TNavigation>(
 ): [TNavigation[T], (value: TNavigation[T]) => void] => {
   const [searchParams, setSearchParams] = useSearchParams(defaultValues);
   const navQuery = useMemo(() => {
-    return searchParams.get(name) as TNavigation[T];
+    return (searchParams.get(name) ?? defaultValues[name]) as TNavigation[T];
   }, [name, searchParams]);
 
   const setNavQuery = useCallback(
     (value: TNavigation[T]) => {
       setSearchParams((searchParams) => {
-        searchParams.set(name, value);
+        if (value === defaultValues[name]) {
+          searchParams.delete(name);
+        } else {
+          searchParams.set(name, value);
+        }
 
         return searchParams;
       });

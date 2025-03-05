@@ -1,11 +1,12 @@
+import {getDateFormat} from 'modules/common/lib/getDateFormat';
 import {useMemo} from 'react';
 
-export const useDateFormat = (date: string | undefined) => {
-  return useMemo<string>(() => {
+export const useDateFormat = (date: string | undefined, options?: Intl.DateTimeFormatOptions): string | undefined => {
+  return useMemo(() => {
     if (date === undefined) {
-      return '\u00A0';
+      return undefined;
     }
 
-    return new Date(date).toLocaleDateString('ru-RU');
-  }, [date]);
+    return getDateFormat(date, options);
+  }, [date, options]);
 };

@@ -1,15 +1,28 @@
 @import (reference) 'src/styles/mixins';
 
 .NavigationItemInner {
+  padding: 4px 0;
+
   &__Icon {
     font-size: 24px;
+    height: 32px;
     line-height: 0;
-    padding: 4px 0 2px;
+    padding: 4px 0;
+    transition: color @animation;
+
+    .html_light & {
+      color: @c-primary-4;
+    }
+
+    .html_dark & {
+      color: @c-primary-3;
+    }
   }
 
   &__Title {
     font-size: 12px;
+    font-weight: 500;
     line-height: 16px;
-    padding: 2px 0 4px;
+    padding: 4px 0;
   }
 }

@@ -15,43 +15,38 @@ const fields: Array<keyof TExample> = ['name', 'email', 'age', 'balance'];
 export const ExampleList = () => {
   const list = useAppSelector(selectExampleList);
   const load = useLoadItem(exampleActions.getList.type);
-
-  if (undefined === load) {
-    return null;
-  }
-
-  if (load) {
-    return <Loader />;
-  }
+  const loading = load ?? true;
 
   return (
-    <table className="ExampleList">
-      <thead>
-        <tr>
-          {fields.map((field) => {
+    <Loader loading={loading}>
+      <table className="ExampleList">
+        <thead>
+          <tr>
+            {fields.map((field) => {
+              return (
+                <th className="ExampleList__Cell" key={field}>
+                  {field}
+                </th>
+              );
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {list.map((item) => {
             return (
-              <th className="ExampleList__Cell" key={field}>
-                {field}
-              </th>
+              <tr key={item[exampleIdKey]}>
+                {fields.map((field) => {
+                  return (
+                    <td className="ExampleList__Cell" key={field}>
+                      <Link to={`${appPath.example}/${item[exampleIdKey]}`}>{`${item[field]}`}</Link>
+                    </td>
+                  );
+                })}
+              </tr>
             );
           })}
-        </tr>
-      </thead>
-      <tbody>
-        {list.map((item) => {
-          return (
-            <tr key={item[exampleIdKey]}>
-              {fields.map((field) => {
-                return (
-                  <td className="ExampleList__Cell" key={field}>
-                    <Link to={`${appPath.example}/${item[exampleIdKey]}`}>{`${item[field]}`}</Link>
-                  </td>
-                );
-              })}
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </Loader>
   );
 };

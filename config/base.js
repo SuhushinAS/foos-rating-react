@@ -48,7 +48,7 @@ module.exports = (options) => {
     output: {
       clean: true,
       filename: '[name].min.js',
-      library: ['reactStarterKit'],
+      library: ['foosRatingReact'],
       path: options.dist,
       publicPath: '/',
     },

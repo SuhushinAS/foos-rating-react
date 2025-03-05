@@ -85,7 +85,7 @@ export class Scroll extends React.Component<TScrollProps, unknown> {
     );
   }
 
-  renderScrollbar = (dir) => {
+  renderScrollbar = (dir: TDirection) => {
     return (
       <div className={`Scroll__Track Scroll__Track_${dir}`} key={dir} ref={this.references[getTrackKey(dir)]}>
         <div className={`Scroll__Bar Scroll__Bar_${dir}`} ref={this.references[getBarKey(dir)]} />

@@ -1,28 +1,31 @@
-import {SvgIcon} from 'modules/common/components/SvgIcon';
-import {TCity} from 'modules/navigation/model/types';
-import {useFavoriteItem} from 'modules/rating/lib/useFavoriteItem';
-import {useSetFavoriteItem} from 'modules/rating/lib/useSetFavorite';
-import React, {useMemo} from 'react';
-import './RatingFavorite.less';
+import {NavigationButton} from 'modules/navigation/components/NavigationButton';
+import {useIndexMap} from 'modules/navigation/lib/useIndexMap';
+import {useNextClick} from 'modules/navigation/lib/useNextClick';
+import {TNavigationItem} from 'modules/navigation/model/types';
+import {RatingFavoriteListItem} from 'modules/rating/components/RatingFavoriteListItem';
+import React from 'react';
 
 type TProps = {
-  city: TCity;
-  id: number;
+  list: TNavigationItem<number>[];
+  onChange: (value: number) => void;
+  value: number;
 };
 
-export const RatingFavorite = ({city, id}: TProps) => {
-  const isFavorite = useFavoriteItem(city, id);
-  const className = useMemo(() => {
-    const classList = ['RatingFavorite'];
+export const RatingFavorite = React.memo(({list, onChange, value}: TProps) => {
+  const indexMap = useIndexMap(list);
+  const currentIndex = indexMap[value];
 
-    return classList.join(' ');
-  }, []);
-
-  const setFavoriteItem = useSetFavoriteItem(city, id, !isFavorite);
+  const onNavigationButtonClick = useNextClick(list, onChange, currentIndex);
 
   return (
-    <button className={className} onClick={setFavoriteItem} type="button">
-      {isFavorite ? <SvgIcon name="star" /> : <SvgIcon name="star-o" />}
-    </button>
+    <NavigationButton onClick={onNavigationButtonClick}>
+      <div className="NavigationList">
+        {list.map((item) => (
+          <RatingFavoriteListItem isActive={value === item.value} item={item} key={item.value} />
+        ))}
+      </div>
+    </NavigationButton>
   );
-};
+});
+
+RatingFavorite.displayName = 'RatingFavorite';

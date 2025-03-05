@@ -1,4 +1,4 @@
-import {NavigationItemList} from 'modules/navigation/components/NavigationItemList';
+import {NavigationList} from 'modules/navigation/components/NavigationList';
 import {useScheme} from 'modules/navigation/lib/useScheme';
 import {schemeList} from 'modules/navigation/model/constants';
 import {TSchemeV2} from 'modules/navigation/model/types';
@@ -56,5 +56,5 @@ export const NavigationItemScheme = () => {
     };
   }, [onDeviceSchemeChange]);
 
-  return <NavigationItemList<TSchemeV2> list={schemeList} onChange={setScheme} value={scheme} />;
+  return <NavigationList<TSchemeV2> list={schemeList} onChange={setScheme} value={scheme} />;
 };

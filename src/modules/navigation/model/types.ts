@@ -8,7 +8,6 @@ export type TNavigation = {
 };
 
 export type TNavigationItem<T extends string | number = string | number> = {
-  description: string;
   icon: React.ReactNode;
   title: string;
   value: T;

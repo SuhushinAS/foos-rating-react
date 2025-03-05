@@ -1,4 +1,4 @@
-import {Footer} from 'modules/layout/components/Footer';
+import {NavigationFooter} from 'modules/navigation/components/NavigationFooter';
 import React from 'react';
 import './Layout.less';
 
@@ -11,7 +11,7 @@ export const Layout = ({children}: TLayoutProps) => {
     <div className="Layout">
       <main className="Layout__Body">{children}</main>
       <footer className="Layout__Footer">
-        <Footer />
+        <NavigationFooter />
       </footer>
     </div>
   );

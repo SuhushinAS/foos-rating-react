@@ -1,0 +1,108 @@
+@import (reference) 'src/styles/mixins';
+
+.Loader {
+  bottom: 0;
+  display: flex;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: background-color @animation, opacity @animation;
+
+  &_Hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .html_light & {
+    background-color: @c-white-9;
+  }
+
+  .html_dark & {
+    background-color: @c-black-2;
+  }
+
+  &__Inner {
+    display: flex;
+    margin: auto;
+  }
+
+  &__Item {
+    @size: 16px;
+    @offset: @size / 2;
+    @duration: 1200ms;
+
+    border-radius: @offset;
+    height: @size;
+    margin: @offset;
+    width: @size;
+
+    &_1 {
+      .html_light & {
+        animation: loading-light @duration linear -2 * @duration / 3 infinite;
+        background-color: @c-primary-7;
+      }
+
+      .html_dark & {
+        animation: loading-dark @duration linear -2 * @duration / 3 infinite;
+        background-color: @c-primary-1;
+      }
+    }
+
+    &_2 {
+
+      .html_light & {
+        animation: loading-light @duration linear -@duration / 3 infinite;
+        background-color: @c-primary-9;
+      }
+
+      .html_dark & {
+        animation: loading-dark @duration linear -@duration / 3 infinite;
+        background-color: @c-primary-3;
+      }
+    }
+
+    &_3 {
+
+      .html_light & {
+        animation: loading-light @duration linear 0s infinite;
+        background-color: @c-primary-8;
+      }
+
+      .html_dark & {
+        animation: loading-dark @duration linear 0s infinite;
+        background-color: @c-primary-2;
+      }
+    }
+
+    @keyframes loading-light {
+      0% {
+        background-color: @c-primary-7;
+      }
+      33.33333333333333333% {
+        background-color: @c-primary-9;
+      }
+      66.66666666666666667% {
+        background-color: @c-primary-8;
+      }
+      100% {
+        background-color: @c-primary-7;
+      }
+    }
+
+    @keyframes loading-dark {
+      0% {
+        background-color: @c-primary-1;
+      }
+      33.33333333333333333% {
+        background-color: @c-primary-3;
+      }
+      66.66666666666666667% {
+        background-color: @c-primary-2;
+      }
+      100% {
+        background-color: @c-primary-1;
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-#ReactStarterKit
+# Foos Rating
 
 ## Как использовать
 

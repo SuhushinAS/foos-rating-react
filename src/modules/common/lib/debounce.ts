@@ -1,17 +1,13 @@
-export const debounce = (func: (...arg: any) => void, wait: number, immediate: boolean = false) => {
+export const debounce = (func: (...arg: any) => void, wait: number) => {
   let timeout;
+
   return (...args) => {
-    const later = () => {
-      timeout = null;
-      if (!immediate) {
-        func(...args);
-      }
-    };
-    const callNow = immediate && !timeout;
     clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) {
+
+    timeout = setTimeout(() => {
+      timeout = null;
+
       func(...args);
-    }
+    }, wait);
   };
 };
