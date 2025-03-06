@@ -27,14 +27,15 @@ body {
   .font-family-primary();
   .f_p();
 
-  background-color: #222423;
-  transition: color @animation, opacity @animation;
+  transition: background-color @animation, color @animation, opacity @animation;
 
   .html_light & {
+    background-color: @c-white;
     color: @c-black-6;
   }
 
   .html_dark & {
+    background-color: @c-black;
     color: @c-white-6;
   }
 }
