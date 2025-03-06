@@ -1,21 +1,6 @@
 import {SvgIcon} from 'modules/common/components/SvgIcon';
-import {
-  TCity,
-  TFilter,
-  TNavigation,
-  TNavigationItem,
-  TRange,
-  TSchemeV1,
-  TSchemeV2,
-} from 'modules/navigation/model/types';
+import {TCity, TFilter, TNavigationItem, TRange, TSchemeV1, TSchemeV2} from 'modules/navigation/model/types';
 import React from 'react';
-
-export const defaultValues: TNavigation = {
-  city: TCity.tsk,
-  filter: TFilter.none,
-  range: TRange.full,
-  scheme: TSchemeV2.auto,
-};
 
 export const schemeMap = {
   [TSchemeV1.auto]: TSchemeV2.auto,

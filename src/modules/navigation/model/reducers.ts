@@ -1,15 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {TCity, TFilter, TNavigation, TRange, TSchemeV2} from 'modules/navigation/model/types';
-
-const initialState: TNavigation = {
-  city: TCity.tsk,
-  filter: TFilter.none,
-  range: TRange.full,
-  scheme: TSchemeV2.auto,
-};
+import {initStore} from 'modules/common/model/initStore';
+import {TCity, TFilter, TRange, TSchemeV2} from 'modules/navigation/model/types';
 
 export const navigation = createSlice({
-  initialState,
+  initialState: initStore.navigation,
   name: 'navigation',
   reducers: {
     setCity: (state, {payload}: PayloadAction<TCity>) => {

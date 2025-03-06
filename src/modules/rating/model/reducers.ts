@@ -1,14 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {initStore} from 'modules/common/model/initStore';
 import {TCity} from 'modules/navigation/model/types';
 import {TFavorite, TRatingCity, TRatingStoreV2} from 'modules/rating/model/types';
 
-const initialState: TRatingStoreV2 = {
-  cityData: {},
-  favoriteData: {},
-};
-
 export const rating = createSlice({
-  initialState,
+  initialState: initStore.rating,
   name: 'rating',
   reducers: {
     init: (state, {payload}: PayloadAction<Partial<TRatingStoreV2>>) => {
