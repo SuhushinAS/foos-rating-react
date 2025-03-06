@@ -5,7 +5,16 @@
   flex-direction: column;
   height: 100%;
   position: fixed;
+  transition: background-color @animation;
   width: 100%;
+
+  .html_light & {
+    background-color: @c-white;
+  }
+
+  .html_dark & {
+    background-color: @c-black;
+  }
 
   &__Body {
     display: flex;
