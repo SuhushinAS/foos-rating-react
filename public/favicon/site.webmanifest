@@ -1,5 +1,10 @@
 {
   "background_color": "#222423",
+  "categories": [
+    "sports"
+  ],
+  "description": "Foos Rating",
+  "dir": "ltr",
   "display": "standalone",
   "icons": [
     {
@@ -48,19 +53,22 @@
       "type": "image/png"
     }
   ],
+  "id": "foos-rating",
+  "lang": "ru",
   "name": "Foos Rating",
+  "orientation": "any",
   "screenshots": [
     {
-      "src": "/favicon/screen-750x1334.png",
-      "type": "image/png",
+      "form_factor": "narrow",
       "sizes": "750x1334",
-      "form_factor": "narrow"
+      "src": "/favicon/screen-750x1334.png",
+      "type": "image/png"
     },
     {
-      "src": "/favicon/screen-2048x1536.png",
-      "type": "image/png",
+      "form_factor": "wide",
       "sizes": "2048x1536",
-      "form_factor": "wide"
+      "src": "/favicon/screen-2048x1536.png",
+      "type": "image/png"
     }
   ],
   "short_name": "Foos Rating",
