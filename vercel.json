@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/tsk/api/:path*",
+      "destination": "https://tsk.gear54.me/api/:path*"
+    }
+  ]
+}
