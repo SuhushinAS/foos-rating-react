@@ -2,8 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "destination": "https://tsk.gear54.me/api/:path*",
       "source": "/tsk/api/:path*",
-      "destination": "https://tsk.gear54.me/api/:path*"
+      "statusCode": 200
+    },
+    {
+      "destination": "https://dyp-nsk.gear54.me/api/:path*",
+      "source": "/nsk/api/:path*",
+      "statusCode": 200
     }
   ]
 }
