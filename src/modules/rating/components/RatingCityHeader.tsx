@@ -36,7 +36,7 @@ export const RatingCityHeader = ({city, setCity}: TProps) => {
 
     return {
       date: getDateFormat(lastEvent.date, dateFormatOptions),
-      name: lastEvent.name.replace(/\s+/giu, ' ').replace(/\s*\d{1,2}\.\d{1,2}(\.\d{2,4})?\s*/giu, ''),
+      name: lastEvent.name.replace(/\s+/giu, ' ').replace(/^\s*\d{1,2}\.\d{1,2}(\.\d{2,4})?(\s*[-_:]\s*)?/giu, ''),
     };
   }, [lastEvent]);
 
