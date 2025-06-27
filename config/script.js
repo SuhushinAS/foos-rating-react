@@ -1,5 +1,13 @@
 const webpack = require('webpack');
+const {config} = require('dotenv');
+const path = require('path');
 const getIsProd = require('./get-is-prod');
+
+const ROOT_PATH = process.cwd();
+const NODE_ENV = process.env.NODE_ENV;
+const dotenvNameList = [`.env.${NODE_ENV}.local`, '.env.local', `.env.${NODE_ENV}`, '.env'];
+const dotenvPathList = dotenvNameList.map((name) => path.resolve(ROOT_PATH, name));
+const {parsed} = config({path: dotenvPathList});
 
 const customInterpolateName = (url) => url.toLowerCase();
 
@@ -31,7 +39,14 @@ module.exports = (config) => {
       ],
     },
     plugins: [
-      new webpack.DefinePlugin({'process.env': {NODE_ENV: JSON.stringify(config.mode)}}),
+      new webpack.DefinePlugin({
+        'process.env': {
+          ...Object.fromEntries(Object.entries(parsed).map(([key, value]) => {
+            return [key, JSON.stringify(value)];
+          })),
+          NODE_ENV: JSON.stringify(NODE_ENV),
+        }
+      }),
       new webpack.IgnorePlugin(IgnorePluginOptions),
       ...getPlugins(config),
     ],

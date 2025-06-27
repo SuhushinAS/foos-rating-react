@@ -1,0 +1,12 @@
+{
+  "urls": {
+    "nsk": {
+      "full": "https://dyp-nsk.gear54.me/api/ratings",
+      "season": "https://dyp-nsk.gear54.me/api/ratings/season"
+    },
+    "tsk": {
+      "full": "https://tsk.gear54.me/api/ratings",
+      "season": "https://tsk.gear54.me/api/ratings/season"
+    }
+  }
+}

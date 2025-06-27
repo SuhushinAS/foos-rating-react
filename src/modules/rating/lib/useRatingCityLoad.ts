@@ -1,20 +1,20 @@
-import {useAppDispatch} from 'app/lib/hooks';
+import {useAppDispatch, useAppSelector} from 'app/lib/hooks';
 import {api} from 'modules/common/lib/api';
+import {selectConfigUrls} from 'modules/config/model/selectors';
 import {TCity, TRange} from 'modules/navigation/model/types';
 import {useLoadCityKey} from 'modules/rating/lib/useLoadCityKey';
 import {ratingActions} from 'modules/rating/model/reducers';
-import {TRating, TRatingAPI, TRatingCity, TRatingDataAPI, TRatingSeasonDataAPI} from 'modules/rating/model/types';
+import {
+  TRating,
+  TRatingAPI,
+  TRatingCity,
+  TRatingDataAPI,
+  TRatingRange,
+  TRatingSeasonDataAPI,
+} from 'modules/rating/model/types';
 import {useLoadItem} from 'modules/status/lib/useLoadItem';
 import {statusActions} from 'modules/status/model/reducers';
 import {useEffect} from 'react';
-
-const cityMap = {
-  [TCity.nsk]: '/nsk',
-  [TCity.tsk]: '/tsk',
-};
-
-const PATH_FULL = '/api/ratings';
-const PATH_SEASON = '/api/ratings/season';
 
 const getRatingListPrev = (acc: TRatingAPI[], rating: TRatingAPI, index: number) => {
   acc[index + rating.positionChange] = rating;
@@ -52,32 +52,32 @@ const getRatingListWithPositions = (ratingList: TRatingAPI[]) => {
   }, []);
 };
 
+const getRatingRange = (rating: TRatingDataAPI): TRatingRange => {
+  return {
+    eventsTotal: rating.eventsTotal,
+    ratings: getRatingListWithPositions(rating.ratings),
+  };
+};
+
 export const useRatingCityLoad = (city: TCity) => {
   const dispatch = useAppDispatch();
   const loadKey = useLoadCityKey(city);
   const load = useLoadItem(loadKey);
+  const urls = useAppSelector(selectConfigUrls);
 
   useEffect(() => {
     if (undefined === load) {
-      const host = cityMap[city];
-      const urlRatingsFull = `${host}${PATH_FULL}`;
-      const urlRatingsSeason = `${host}${PATH_SEASON}`;
+      const {full, season} = urls[city];
 
       dispatch(statusActions.loadStart(loadKey));
 
-      Promise.all([api.request<TRatingDataAPI>(urlRatingsFull), api.request<TRatingSeasonDataAPI>(urlRatingsSeason)])
+      Promise.all([api.request<TRatingDataAPI>(full), api.request<TRatingSeasonDataAPI>(season)])
         .then(([full, season]) => {
           const rating: TRatingCity = {
             lastEvent: full.lastEvent,
             rangeData: {
-              [TRange.full]: {
-                eventsTotal: full.eventsTotal,
-                ratings: getRatingListWithPositions(full.ratings),
-              },
-              [TRange.season]: {
-                eventsTotal: season.eventsTotal,
-                ratings: getRatingListWithPositions(season.ratings),
-              },
+              [TRange.full]: getRatingRange(full),
+              [TRange.season]: getRatingRange(season),
             },
             seasonStartDate: season.seasonStartDate,
           };
@@ -88,5 +88,5 @@ export const useRatingCityLoad = (city: TCity) => {
           dispatch(statusActions.loadStop(loadKey));
         });
     }
-  }, [city, dispatch, load, loadKey]);
+  }, [city, dispatch, load, loadKey, urls]);
 };

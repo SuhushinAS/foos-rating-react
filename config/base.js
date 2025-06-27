@@ -10,28 +10,38 @@ const getPlugins = ({mode}) => {
   return [new webpack.HotModuleReplacementPlugin()];
 };
 
+const getProxy = (options) => {
+  const isProd = getIsProd(options.mode);
+
+  if (isProd) {
+    return undefined;
+  }
+
+  return [
+    {
+      changeOrigin: true,
+      context: ['/nsk'],
+      pathRewrite: {'^/nsk': ''},
+      secure: false,
+      target: 'https://dyp-nsk.gear54.me',
+    },
+    {
+      changeOrigin: true,
+      context: ['/tsk'],
+      pathRewrite: {'^/tsk': ''},
+      secure: false,
+      target: 'https://tsk.gear54.me',
+    },
+  ];
+};
+
 const getDevServer = (options) => {
   return {
     historyApiFallback: true,
     host: '0.0.0.0',
     hot: true,
     port: 8000,
-    proxy: [
-      {
-        changeOrigin: true,
-        context: ['/nsk'],
-        pathRewrite: {'^/nsk': ''},
-        secure: false,
-        target: 'https://dyp-nsk.gear54.me',
-      },
-      {
-        changeOrigin: true,
-        context: ['/tsk'],
-        pathRewrite: {'^/tsk': ''},
-        secure: false,
-        target: 'https://tsk.gear54.me',
-      },
-    ],
+    proxy: getProxy(options),
     static: options.public,
   };
 };
