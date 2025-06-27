@@ -64,10 +64,7 @@ export type TRatingDataAPI = {
   ratings: TRatingAPI[];
 };
 
-export type TRatingSeasonDataAPI = {
-  eventsTotal: number;
-  lastEvent: TLastEvent;
-  ratings: TRatingAPI[];
+export type TRatingSeasonDataAPI = TRatingDataAPI & {
   seasonStartDate: string;
 };
 

@@ -3,5 +3,5 @@ export type TStatusStore = {
 };
 
 export type TLoadMap = {
-  [key: string]: boolean;
+  [key: string]: boolean | undefined;
 };
