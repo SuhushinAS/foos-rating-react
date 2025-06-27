@@ -32,7 +32,7 @@ export class Api {
   }
 
   requestLocal<T>(url = ''): Promise<T> {
-    return this.fetch(`/local${url}`);
+    return this.fetch(`/foos-rating/local${url}`);
   }
 }
 

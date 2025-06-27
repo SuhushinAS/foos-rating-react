@@ -1,5 +1,5 @@
 const cacheName = 'cache_v1';
-const urlList = ['/main.min.js', '/vendor.min.js', '/sprite.svg', '/'];
+const urlList = ['/foos-rating/main.min.js', '/foos-rating/vendor.min.js', '/foos-rating/sprite.svg', '/foos-rating/'];
 
 function attachEvent(el, event, handler) {
   el.removeEventListener(event, handler);
@@ -8,7 +8,7 @@ function attachEvent(el, event, handler) {
 
 function onInstall() {
   caches.open(cacheName).then(function (cache) {
-    return cache.addAll(urlList);
+    cache.addAll(urlList);
   });
 }
 
@@ -17,7 +17,7 @@ function cacheLite(request) {
     fetch(request)
       .then(function (response) {
         caches.open(cacheName).then(function (cache) {
-          return cache.put(request, response);
+          cache.put(request, response);
         });
 
         resolve(response.clone());

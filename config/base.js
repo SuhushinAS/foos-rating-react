@@ -60,7 +60,7 @@ module.exports = (options) => {
       filename: '[name].min.js',
       library: ['foosRatingReact'],
       path: options.dist,
-      publicPath: '/',
+      publicPath: '/foos-rating/',
     },
     plugins: [new CopyWebpackPlugin({patterns: [{from: options.public, to: options.dist}]}), ...getPlugins(options)],
     resolve: {
