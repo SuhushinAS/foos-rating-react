@@ -1,5 +1,6 @@
 import {Loader} from 'modules/common/components/Loader';
 import {useFilter} from 'modules/navigation/lib/useFilter';
+import {useHistory} from 'modules/navigation/lib/useHistory';
 import {TCity, TRange} from 'modules/navigation/model/types';
 import {RatingList} from 'modules/rating/components/RatingList';
 import {useLoadCityKey} from 'modules/rating/lib/useLoadCityKey';
@@ -14,6 +15,7 @@ type TProps = {
 
 export const RatingCityRange = ({city, range}: TProps) => {
   const filter = useFilter();
+  const history = useHistory();
   const ratings = useRatingsFilter(city, range, filter);
 
   const loadKey = useLoadCityKey(city);
@@ -22,7 +24,7 @@ export const RatingCityRange = ({city, range}: TProps) => {
 
   return (
     <Loader loading={loading}>
-      <RatingList city={city} filter={filter} ratings={ratings} />
+      <RatingList city={city} filter={filter} history={history} ratings={ratings} />
     </Loader>
   );
 };

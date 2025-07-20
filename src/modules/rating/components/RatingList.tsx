@@ -1,5 +1,5 @@
 import {Scroll, TDirection} from 'modules/common/components/Scroll';
-import {TCity, TFilter} from 'modules/navigation/model/types';
+import {TCity, TFilter, THistory} from 'modules/navigation/model/types';
 import {RatingListEmpty} from 'modules/rating/components/RatingListEmpty';
 import {RatingListItem} from 'modules/rating/components/RatingListItem';
 import {TRating} from 'modules/rating/model/types';
@@ -9,12 +9,13 @@ import './RatingList.less';
 type TProps = {
   city: TCity;
   filter: TFilter;
+  history: THistory;
   ratings: TRating[];
 };
 
 const dirList: TDirection[] = ['v'];
 
-export const RatingList = ({city, filter, ratings}: TProps) => {
+export const RatingList = ({city, filter, history, ratings}: TProps) => {
   if (0 === ratings.length) {
     return <RatingListEmpty city={city} filter={filter} />;
   }
@@ -23,7 +24,7 @@ export const RatingList = ({city, filter, ratings}: TProps) => {
     <div className="RatingList">
       <Scroll dirList={dirList}>
         {ratings.map((rating) => (
-          <RatingListItem city={city} key={rating.id} rating={rating} />
+          <RatingListItem city={city} history={history} key={rating.id} rating={rating} />
         ))}
       </Scroll>
     </div>

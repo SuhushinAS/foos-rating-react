@@ -58,6 +58,11 @@ export type TRating = TRatingAPI & {
   position: number;
 };
 
+export type TRatingFilter = TRating & {
+  positionChangeFilter: number;
+  positionFilter: number;
+};
+
 export type TRatingDataAPI = {
   eventsTotal: number;
   lastEvent: TLastEvent;

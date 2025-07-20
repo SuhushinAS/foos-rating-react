@@ -2,60 +2,19 @@ import {useAppDispatch, useAppSelector} from 'app/lib/hooks';
 import {api} from 'modules/common/lib/api';
 import {selectConfigUrls} from 'modules/config/model/selectors';
 import {TCity, TRange} from 'modules/navigation/model/types';
+import {filterRating} from 'modules/rating/lib/filterRating';
+import {getRatingPositions} from 'modules/rating/lib/getRatingPositions';
 import {useLoadCityKey} from 'modules/rating/lib/useLoadCityKey';
 import {ratingActions} from 'modules/rating/model/reducers';
-import {
-  TRating,
-  TRatingAPI,
-  TRatingCity,
-  TRatingDataAPI,
-  TRatingRange,
-  TRatingSeasonDataAPI,
-} from 'modules/rating/model/types';
+import {TRatingCity, TRatingDataAPI, TRatingRange, TRatingSeasonDataAPI} from 'modules/rating/model/types';
 import {useLoadItem} from 'modules/status/lib/useLoadItem';
 import {statusActions} from 'modules/status/model/reducers';
 import {useEffect} from 'react';
 
-const getRatingListPrev = (acc: TRatingAPI[], rating: TRatingAPI, index: number) => {
-  acc[index + rating.positionChange] = rating;
-
-  return acc;
-};
-
-const filterRating = ({eventsPlayed}: TRatingAPI) => {
-  return 0 !== eventsPlayed;
-};
-
-const getRatingPositionMap = (acc: Record<number, number>, rating: TRatingAPI, index: number) => {
-  acc[rating.id] = index + 1;
-
-  return acc;
-};
-
-const getRatingListWithPositions = (ratingList: TRatingAPI[]) => {
-  const ratingPositionPrevMap = ratingList
-    .reduce(getRatingListPrev, [])
-    .filter(filterRating)
-    .reduce(getRatingPositionMap, {});
-
-  return ratingList.filter(filterRating).reduce<TRating[]>((acc, rating, index) => {
-    const position = index + 1;
-    const positionPrev = ratingPositionPrevMap[rating.id];
-
-    acc.push({
-      ...rating,
-      position,
-      positionChange: positionPrev - position,
-    });
-
-    return acc;
-  }, []);
-};
-
 const getRatingRange = (rating: TRatingDataAPI): TRatingRange => {
   return {
     eventsTotal: rating.eventsTotal,
-    ratings: getRatingListWithPositions(rating.ratings),
+    ratings: getRatingPositions({filterRating, ratingList: rating.ratings}),
   };
 };
 

@@ -3,6 +3,7 @@ import React from 'react';
 export type TNavigation = {
   city: TCity;
   filter: TFilter;
+  history: THistory;
   range: TRange;
   scheme: TSchemeV2;
 };
@@ -41,6 +42,11 @@ export const enum TSchemeV2 {
   auto = 'auto',
   dark = 'dark',
   light = 'light',
+}
+
+export enum THistory {
+  current = 'current',
+  previous = 'previous',
 }
 
 export type TNavigationListProps<T extends string | number> = {
