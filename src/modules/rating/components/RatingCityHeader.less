@@ -38,29 +38,15 @@
 
   &__Info {
     flex-basis: 100%;
+    min-width: 0;
+    padding: 12px 4px;
     position: relative;
   }
 
-  &__InfoScroll {
-    bottom: 0;
-    height: 100%;
-    left: 0;
-    overflow: auto;
-    position: absolute;
-    right: 0;
-    top: 0;
+  &__Row {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     width: 100%;
-  }
-
-  &__InfoInner {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 8px;
-    width: 100%;
-  }
-
-  &__Season, &__LastEvent {
-    padding: 2px;
   }
 }

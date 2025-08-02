@@ -1,5 +1,13 @@
 import {SvgIcon} from 'modules/common/components/SvgIcon';
-import {TCity, TFilter, TNavigationItem, TRange, TSchemeV1, TSchemeV2} from 'modules/navigation/model/types';
+import {
+  TCity,
+  TFilter,
+  TNavigationData,
+  TNavigationItem,
+  TRange,
+  TSchemeV1,
+  TSchemeV2,
+} from 'modules/navigation/model/types';
 import React from 'react';
 
 export const schemeMap = {
@@ -8,64 +16,72 @@ export const schemeMap = {
   [TSchemeV1.light]: TSchemeV2.light,
 };
 
-export const cityList: TNavigationItem<TCity>[] = [
-  {
+export const cityData: TNavigationData<TCity> = {
+  [TCity.nsk]: {
     icon: <SvgIcon name="map-marker" />,
     title: 'Nsk',
     value: TCity.nsk,
   },
-  {
+  [TCity.tsk]: {
     icon: <SvgIcon name="map-marker" />,
     title: 'Tsk',
     value: TCity.tsk,
   },
-];
+};
 
-export const filterList: TNavigationItem<TFilter>[] = [
-  {
+export const cityList: TNavigationItem<TCity>[] = [cityData[TCity.nsk], cityData[TCity.tsk]];
+
+export const filterData: TNavigationData<TFilter> = {
+  [TFilter.none]: {
     icon: <SvgIcon name="group" />,
-    title: 'Все игроки',
+    title: 'Все',
     value: TFilter.none,
   },
-  {
+  [TFilter.last]: {
     icon: <SvgIcon name="futbol-o" />,
-    title: 'Последняя игра',
+    title: 'Игра',
     value: TFilter.last,
   },
-  {
+  [TFilter.favorite]: {
     icon: <SvgIcon name="star" />,
-    title: 'Избранные игроки',
+    title: 'Избранные',
     value: TFilter.favorite,
   },
-];
+};
 
-export const rangeList: TNavigationItem<TRange>[] = [
-  {
+export const rangeData: TNavigationData<TRange> = {
+  [TRange.full]: {
     icon: <SvgIcon name="calendar-o" />,
-    title: 'Общий рейтинг',
+    title: 'Общий',
     value: TRange.full,
   },
-  {
+  [TRange.season]: {
     icon: <SvgIcon name="calendar" />,
-    title: 'Сезоный рейтинг',
+    title: 'Сезон',
     value: TRange.season,
   },
-];
+};
 
-export const schemeList: TNavigationItem<TSchemeV2>[] = [
-  {
+export const schemeData: TNavigationData<TSchemeV2> = {
+  [TSchemeV2.auto]: {
     icon: <SvgIcon name="adjust" />,
-    title: 'Авто тема',
+    title: 'Авто',
     value: TSchemeV2.auto,
   },
-  {
+  [TSchemeV2.dark]: {
     icon: <SvgIcon name="moon-o" />,
-    title: 'Тёмная тема',
+    title: 'Тёмная',
     value: TSchemeV2.dark,
   },
-  {
+  [TSchemeV2.light]: {
     icon: <SvgIcon name="sun-o" />,
-    title: 'Светлая тема',
+    title: 'Светлая',
     value: TSchemeV2.light,
   },
+};
+
+export const schemeList: TNavigationItem<TSchemeV2>[] = [
+  schemeData[TSchemeV2.auto],
+  schemeData[TSchemeV2.dark],
+  schemeData[TSchemeV2.light],
 ];

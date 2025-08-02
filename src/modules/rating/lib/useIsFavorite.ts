@@ -1,16 +1,12 @@
 import {useAppDispatch} from 'app/lib/hooks';
 import {TCity} from 'modules/navigation/model/types';
-import {useFavorite} from 'modules/rating/lib/useFavorite';
+import {useFavoriteItem} from 'modules/rating/lib/useFavoriteItem';
 import {ratingActions} from 'modules/rating/model/reducers';
 import {useCallback, useMemo} from 'react';
 
 export const useIsFavorite = (city: TCity, id: number): [number, (value: number) => void] => {
-  const favorite = useFavorite(city);
+  const favoriteItem = useFavoriteItem(city, id);
   const dispatch = useAppDispatch();
-
-  const isFavorite = useMemo(() => {
-    return Number(favorite?.[id] ?? false);
-  }, [favorite, id]);
 
   const setIsFavorite = useCallback(
     (isFavorite: number) => {
@@ -19,5 +15,7 @@ export const useIsFavorite = (city: TCity, id: number): [number, (value: number)
     [city, dispatch, id]
   );
 
-  return [isFavorite, setIsFavorite];
+  return useMemo(() => {
+    return [Number(favoriteItem), setIsFavorite];
+  }, [favoriteItem, setIsFavorite]);
 };
