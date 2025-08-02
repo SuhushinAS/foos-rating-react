@@ -1,6 +1,7 @@
+import {useAppSelector} from 'app/lib/hooks';
 import {TCity, TFilter, TRange} from 'modules/navigation/model/types';
 import {useFavorite} from 'modules/rating/lib/useFavorite';
-import {useRatings} from 'modules/rating/lib/useRatings';
+import {selectRatings} from 'modules/rating/model/selectors';
 import {TRating} from 'modules/rating/model/types';
 import {useMemo} from 'react';
 
@@ -27,7 +28,7 @@ const getFilterRatings = (ratings: TRating[], filter: TFilter, favorite?: TFavor
 };
 
 export const useRatingsFilter = (city: TCity, range: TRange, filter: TFilter): TRating[] => {
-  const ratings = useRatings(city, range);
+  const ratings = useAppSelector(selectRatings(city, range));
   const favorite = useFavorite(city);
 
   return useMemo(() => {

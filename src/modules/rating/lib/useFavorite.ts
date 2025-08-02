@@ -1,22 +1,22 @@
+import {useAppSelector} from 'app/lib/hooks';
 import {TCity} from 'modules/navigation/model/types';
-import {useFavoriteData} from 'modules/rating/lib/useFavoriteData';
+import {selectRatingFavorite} from 'modules/rating/model/selectors';
 import {useMemo} from 'react';
 
 export const useFavorite = (city: TCity) => {
-  const favoriteData = useFavoriteData();
-  const favoriteCity = favoriteData[city];
+  const favorite = useAppSelector(selectRatingFavorite(city));
 
   return useMemo(() => {
-    if (favoriteCity === undefined) {
+    if (favorite === undefined) {
       return undefined;
     }
 
-    const favoriteCityFiltered = Object.entries(favoriteCity).filter(([, value]) => value);
+    const favoriteFiltered = Object.entries(favorite).filter(([, value]) => value);
 
-    if (0 === favoriteCityFiltered.length) {
+    if (0 === favoriteFiltered.length) {
       return undefined;
     }
 
-    return Object.fromEntries(favoriteCityFiltered);
-  }, [favoriteCity]);
+    return Object.fromEntries(favoriteFiltered);
+  }, [favorite]);
 };

@@ -13,29 +13,31 @@ export type TNavigationItem<T extends string | number = string | number> = {
   value: T;
 };
 
-export enum TCity {
+export type TNavigationData<T extends string | number = string | number> = Record<T, TNavigationItem<T>>;
+
+export const enum TCity {
   nsk = 'nsk',
   tsk = 'tsk',
 }
 
-export enum TRange {
+export const enum TRange {
   full = 'full',
   season = 'season',
 }
 
-export enum TFilter {
+export const enum TFilter {
   favorite = 'favorite',
   last = 'last',
   none = 'none',
 }
 
-export enum TSchemeV1 {
+export const enum TSchemeV1 {
   auto,
   dark,
   light,
 }
 
-export enum TSchemeV2 {
+export const enum TSchemeV2 {
   auto = 'auto',
   dark = 'dark',
   light = 'light',

@@ -1,8 +1,7 @@
+import {useAppSelector} from 'app/lib/hooks';
 import {TCity, TRange} from 'modules/navigation/model/types';
-import {useRatingRange} from 'modules/rating/lib/useRatingRange';
+import {selectEventsTotal} from 'modules/rating/model/selectors';
 
 export const useEventsTotal = (city: TCity, range: TRange) => {
-  const ratingRange = useRatingRange(city, range);
-
-  return ratingRange?.eventsTotal;
+  return useAppSelector(selectEventsTotal(city, range));
 };
