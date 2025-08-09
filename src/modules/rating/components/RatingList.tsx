@@ -1,7 +1,7 @@
 import {useAppSelector} from 'app/lib/hooks';
 import {Scroll, TDirection} from 'modules/common/components/Scroll';
 import {selectNavigationHistory} from 'modules/navigation/model/selectors';
-import {TCity, TFilter, THistory} from 'modules/navigation/model/types';
+import {TCity, THistory} from 'modules/navigation/model/types';
 import {RatingListItem} from 'modules/rating/components/RatingListItem';
 import {getPositionMap} from 'modules/rating/lib/getPositionMap';
 import {TRating} from 'modules/rating/model/types';
@@ -10,7 +10,6 @@ import './RatingList.less';
 
 type TProps = {
   city: TCity;
-  filter: TFilter;
   ratings: TRating[];
 };
 

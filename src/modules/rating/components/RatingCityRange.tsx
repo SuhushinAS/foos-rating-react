@@ -1,8 +1,8 @@
 import {useAppSelector} from 'app/lib/hooks';
-import {Loader} from 'modules/common/components/Loader';
 import {selectNavigationFilter} from 'modules/navigation/model/selectors';
 import {TCity, TRange} from 'modules/navigation/model/types';
-import {RatingListWrapper} from 'modules/rating/components/RatingListWrapper';
+import {RatingList} from 'modules/rating/components/RatingList';
+import {RatingListEmpty} from 'modules/rating/components/RatingListEmpty';
 import {useLoadCityKey} from 'modules/rating/lib/useLoadCityKey';
 import {useRatingsFilter} from 'modules/rating/lib/useRatingsFilter';
 import {useLoadItem} from 'modules/status/lib/useLoadItem';
@@ -21,9 +21,13 @@ export const RatingCityRange = ({city, range}: TProps) => {
   const load = useLoadItem(loadKey);
   const loading = load ?? true;
 
-  return (
-    <Loader loading={loading}>
-      <RatingListWrapper city={city} filter={filter} ratings={ratings} />
-    </Loader>
-  );
+  if (0 < ratings.length) {
+    return <RatingList city={city} ratings={ratings} />;
+  }
+
+  if (loading) {
+    return null;
+  }
+
+  return <RatingListEmpty city={city} filter={filter} />;
 };

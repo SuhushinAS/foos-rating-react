@@ -57,6 +57,12 @@ export const selectLastEvent = (city: TCity) => {
   };
 };
 
+export const selectLastEventDate = (city: TCity) => {
+  return (state: TState): string | undefined => {
+    return selectLastEvent(city)(state)?.date;
+  };
+};
+
 export const selectSeasonStartDate = (city: TCity) => {
   return (state: TState): string | undefined => {
     return selectRatingCity(city)(state)?.seasonStartDate;
