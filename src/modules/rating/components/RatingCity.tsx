@@ -1,4 +1,5 @@
-import {useRange} from 'modules/navigation/lib/useRange';
+import {useAppSelector} from 'app/lib/hooks';
+import {selectNavigationRange} from 'modules/navigation/model/selectors';
 import {TCity} from 'modules/navigation/model/types';
 import {RatingCityHeader} from 'modules/rating/components/RatingCityHeader';
 import {RatingCityRange} from 'modules/rating/components/RatingCityRange';
@@ -12,7 +13,7 @@ type TProps = {
 };
 
 export const RatingCity = ({city, setCity}: TProps) => {
-  const range = useRange();
+  const range = useAppSelector(selectNavigationRange);
 
   useRatingCityLoad(city);
 

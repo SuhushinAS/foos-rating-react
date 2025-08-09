@@ -1,6 +1,6 @@
+import {useAppSelector} from 'app/lib/hooks';
 import {Loader} from 'modules/common/components/Loader';
-import {useFilter} from 'modules/navigation/lib/useFilter';
-import {useHistory} from 'modules/navigation/lib/useHistory';
+import {selectNavigationFilter, selectNavigationHistory} from 'modules/navigation/model/selectors';
 import {TCity, TRange} from 'modules/navigation/model/types';
 import {RatingList} from 'modules/rating/components/RatingList';
 import {useLoadCityKey} from 'modules/rating/lib/useLoadCityKey';
@@ -14,8 +14,8 @@ type TProps = {
 };
 
 export const RatingCityRange = ({city, range}: TProps) => {
-  const filter = useFilter();
-  const history = useHistory();
+  const filter = useAppSelector(selectNavigationFilter);
+  const history = useAppSelector(selectNavigationHistory);
   const ratings = useRatingsFilter(city, range, filter);
 
   const loadKey = useLoadCityKey(city);
