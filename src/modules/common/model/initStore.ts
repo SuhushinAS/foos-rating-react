@@ -41,7 +41,16 @@ const getInitStore = (key: string, transform: (state: any) => InitStoreV2): Init
 };
 
 const transformV3 = (state: InitStoreV2): InitStoreV2 => {
-  return state;
+  return {
+    navigation: {
+      ...initStoreDefault.navigation,
+      ...state.navigation,
+    },
+    rating: {
+      ...initStoreDefault.rating,
+      ...state.rating,
+    },
+  };
 };
 
 const transformV2 = (state: TRatingStoreV2): InitStoreV2 => {

@@ -1,76 +1,45 @@
 import {useAppDispatch, useAppSelector} from 'app/lib/hooks';
 import {api} from 'modules/common/lib/api';
-import {compare} from 'modules/common/lib/compare';
 import {selectConfigUrls} from 'modules/config/model/selectors';
 import {TCity, TRange} from 'modules/navigation/model/types';
-import {filterRating} from 'modules/rating/lib/filterRating';
-import {getRating} from 'modules/rating/lib/getRating';
+import {getPositionMap} from 'modules/rating/lib/getPositionMap';
 import {useLoadCityKey} from 'modules/rating/lib/useLoadCityKey';
 import {ratingActions} from 'modules/rating/model/reducers';
-import {TRatingCity, TRatingDataAPI, TRatingRange, TRatingSeasonDataAPI} from 'modules/rating/model/types';
+import {
+  TRating,
+  TRatingAPI,
+  TRatingCity,
+  TRatingDataAPI,
+  TRatingRange,
+  TRatingSeasonDataAPI,
+} from 'modules/rating/model/types';
 import {useLoadItem} from 'modules/status/lib/useLoadItem';
 import {statusActions} from 'modules/status/model/reducers';
 import {useEffect} from 'react';
 
+const getRatingPosition = (rating: TRatingAPI, index: number): TRating => {
+  return {
+    ...rating,
+    position: index + 1,
+  };
+};
+
+export const filterRating = ({eventsPlayed}: TRatingAPI) => {
+  return 0 !== eventsPlayed;
+};
+
 const getRatingRange = (rating: TRatingDataAPI): TRatingRange => {
-  const ratings = getRating({filterRating, ratingList: rating.ratings});
-  const ratingData = rating.ratings.reduce((acc, rating, index) => {
-    const position = index + 1;
+  const ratingListFiltered = rating.ratings.map(getRatingPosition).filter(filterRating);
+  const positionMap = getPositionMap(ratingListFiltered);
+  const ratings = ratingListFiltered.map((rating) => {
+    const {position, positionChange} = positionMap[rating.id];
 
-    acc[rating.id] = {
+    return {
       ...rating,
-      position,
-    };
-
-    return acc;
-  }, {});
-  const ratingIdList = rating.ratings.filter(filterRating).map((rating) => {
-    return rating.id;
-  });
-  const ratingIdListPrev = ratingIdList.toSorted((idA, idB) => {
-    const rating2A = ratingData[idA];
-    const rating2B = ratingData[idB];
-    const valuePrevA = rating2A.value - rating2A.valueChange;
-    const valuePrevB = rating2B.value - rating2B.valueChange;
-
-    if (valuePrevB === valuePrevA) {
-      return rating2B.position - rating2A.position + rating2B.positionChange - rating2A.positionChange;
-    }
-
-    return valuePrevB - valuePrevA;
-  });
-
-  const positionMap = ratingIdList.reduce((acc, id, index) => {
-    acc[id] = {
-      position: index + 1,
-    };
-
-    return acc;
-  }, {});
-  ratingIdListPrev.forEach((id, index) => {
-    const positionItem = positionMap[id];
-    const positionPrev = index + 1;
-
-    positionItem.positionPrev = positionPrev;
-    positionItem.positionChange = positionPrev - positionItem.position;
-  });
-
-  const t1 = ratings.map((rating) => {
-    return {
-      id: rating.id,
-      position: rating.position,
-      positionChange: rating.positionChange,
-    };
-  });
-  const t2 = ratingIdList.map((id) => {
-    const {position, positionChange} = positionMap[id];
-    return {
-      id,
       position,
       positionChange,
     };
   });
-  console.log(compare(t1, t2));
 
   return {
     eventsTotal: rating.eventsTotal,
