@@ -10,19 +10,26 @@ import './RatingList.less';
 
 type TProps = {
   city: TCity;
+  isUpdating: boolean;
   ratings: TRating[];
 };
 
 const dirList: TDirection[] = ['v'];
 
-export const RatingList = ({city, ratings}: TProps) => {
+export const RatingList = ({city, isUpdating, ratings}: TProps) => {
   const history = useAppSelector(selectNavigationHistory);
   const [historyPrev, setHistoryPrev] = useState<THistory>(history);
-  const isCurrent = history === THistory.current;
+  const isCurrent = isUpdating ? false : history === THistory.current;
   const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const positionMap = useMemo(() => {
     return getPositionMap(ratings);
   }, [ratings]);
+
+  useEffect(() => {
+    if (isUpdating) {
+      setHistoryPrev(THistory.previous);
+    }
+  }, [isUpdating]);
 
   useEffect(() => {
     if (history !== historyPrev) {
@@ -46,9 +53,8 @@ export const RatingList = ({city, ratings}: TProps) => {
         {ratings.map((rating, index) => (
           <RatingListItem
             city={city}
-            history={history}
             isCurrent={isCurrent}
-            isTranslating={history !== historyPrev}
+            isTranslating={history !== historyPrev && !isUpdating}
             key={index}
             positionMap={positionMap}
             rating={rating}

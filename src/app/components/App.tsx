@@ -14,16 +14,18 @@ export const App = () => {
   }, []);
 
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Config>
-          <Layout>
-            <Routes>
-              <Route element={<Rating />} path={appPath.home} />
-            </Routes>
-          </Layout>
-        </Config>
-      </BrowserRouter>
-    </Provider>
+    <React.StrictMode>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Config>
+            <Layout>
+              <Routes>
+                <Route element={<Rating />} path={appPath.home} />
+              </Routes>
+            </Layout>
+          </Config>
+        </BrowserRouter>
+      </Provider>
+    </React.StrictMode>
   );
 };

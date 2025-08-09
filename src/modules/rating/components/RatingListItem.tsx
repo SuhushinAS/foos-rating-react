@@ -1,4 +1,4 @@
-import {TCity, THistory} from 'modules/navigation/model/types';
+import {TCity} from 'modules/navigation/model/types';
 import {RatingChange} from 'modules/rating/components/RatingChange';
 import {RatingFavoriteContainer} from 'modules/rating/components/RatingFavoriteContainer';
 import {RatingRank} from 'modules/rating/components/RatingRank';
@@ -8,7 +8,6 @@ import React, {CSSProperties, useMemo} from 'react';
 
 type TProps = {
   city: TCity;
-  history: THistory;
   isCurrent: boolean;
   isTranslating: boolean;
   positionMap: TPositionMap;

@@ -5,8 +5,9 @@ import {RatingList} from 'modules/rating/components/RatingList';
 import {RatingListEmpty} from 'modules/rating/components/RatingListEmpty';
 import {useLoadCityKey} from 'modules/rating/lib/useLoadCityKey';
 import {useRatingsFilter} from 'modules/rating/lib/useRatingsFilter';
+import {selectLastEventDate} from 'modules/rating/model/selectors';
 import {useLoadItem} from 'modules/status/lib/useLoadItem';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 type TProps = {
   city: TCity;
@@ -16,13 +17,21 @@ type TProps = {
 export const RatingCityRange = ({city, range}: TProps) => {
   const filter = useAppSelector(selectNavigationFilter);
   const ratings = useRatingsFilter(city, range, filter);
+  const lastEventDate = useAppSelector(selectLastEventDate(city));
+  const [lastEventDatePrev, setLastEventDatePrev] = useState<string | undefined>(lastEventDate);
 
   const loadKey = useLoadCityKey(city);
   const load = useLoadItem(loadKey);
   const loading = load ?? true;
 
+  useEffect(() => {
+    if (lastEventDate !== lastEventDatePrev) {
+      setLastEventDatePrev(lastEventDate);
+    }
+  }, [lastEventDate, lastEventDatePrev]);
+
   if (0 < ratings.length) {
-    return <RatingList city={city} ratings={ratings} />;
+    return <RatingList city={city} isUpdating={lastEventDate !== lastEventDatePrev} ratings={ratings} />;
   }
 
   if (loading) {
