@@ -1,30 +1,59 @@
+import {useAppSelector} from 'app/lib/hooks';
 import {Scroll, TDirection} from 'modules/common/components/Scroll';
+import {selectNavigationHistory} from 'modules/navigation/model/selectors';
 import {TCity, TFilter, THistory} from 'modules/navigation/model/types';
-import {RatingListEmpty} from 'modules/rating/components/RatingListEmpty';
 import {RatingListItem} from 'modules/rating/components/RatingListItem';
+import {getPositionMap} from 'modules/rating/lib/getPositionMap';
 import {TRating} from 'modules/rating/model/types';
-import React from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import './RatingList.less';
 
 type TProps = {
   city: TCity;
   filter: TFilter;
-  history: THistory;
   ratings: TRating[];
 };
 
 const dirList: TDirection[] = ['v'];
 
-export const RatingList = ({city, filter, history, ratings}: TProps) => {
-  if (0 === ratings.length) {
-    return <RatingListEmpty city={city} filter={filter} />;
-  }
+export const RatingList = ({city, ratings}: TProps) => {
+  const history = useAppSelector(selectNavigationHistory);
+  const [historyPrev, setHistoryPrev] = useState<THistory>(history);
+  const isCurrent = history === THistory.current;
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const positionMap = useMemo(() => {
+    return getPositionMap(ratings);
+  }, [ratings]);
+
+  useEffect(() => {
+    if (history !== historyPrev) {
+      clearTimeout(timerRef.current);
+
+      const timeout = isCurrent ? 900 : 300;
+
+      timerRef.current = setTimeout(() => {
+        setHistoryPrev(history);
+      }, timeout);
+    }
+
+    return () => {
+      clearTimeout(timerRef.current);
+    };
+  }, [history, historyPrev, isCurrent]);
 
   return (
     <div className="RatingList">
       <Scroll dirList={dirList}>
         {ratings.map((rating, index) => (
-          <RatingListItem city={city} history={history} key={index} rating={rating} />
+          <RatingListItem
+            city={city}
+            history={history}
+            isCurrent={isCurrent}
+            isTranslating={history !== historyPrev}
+            key={index}
+            positionMap={positionMap}
+            rating={rating}
+          />
         ))}
       </Scroll>
     </div>

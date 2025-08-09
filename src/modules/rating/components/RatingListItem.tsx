@@ -2,19 +2,23 @@ import {TCity, THistory} from 'modules/navigation/model/types';
 import {RatingChange} from 'modules/rating/components/RatingChange';
 import {RatingFavoriteContainer} from 'modules/rating/components/RatingFavoriteContainer';
 import {RatingRank} from 'modules/rating/components/RatingRank';
+import {TPositionMap} from 'modules/rating/lib/getPositionMap';
 import {TRating} from 'modules/rating/model/types';
 import React, {CSSProperties, useMemo} from 'react';
 
 type TProps = {
   city: TCity;
   history: THistory;
+  isCurrent: boolean;
+  isTranslating: boolean;
+  positionMap: TPositionMap;
   rating: TRating;
 };
 
-export const RatingListItem = React.memo(({city, history, rating}: TProps) => {
-  const {position, positionChange} = rating;
+export const RatingListItem = React.memo(({city, isCurrent, isTranslating, positionMap, rating}: TProps) => {
+  const {position, positionChange} = positionMap[rating.id];
   const style = useMemo<CSSProperties | undefined>(() => {
-    if (history === THistory.current) {
+    if (isCurrent) {
       return undefined;
     }
 
@@ -25,19 +29,24 @@ export const RatingListItem = React.memo(({city, history, rating}: TProps) => {
     return {
       transform: `translateY(${100 * positionChange}%)`,
     };
-  }, [history, positionChange]);
+  }, [isCurrent, positionChange]);
 
   const className = useMemo(() => {
-    const classList = ['RatingList__Row', `RatingList__Row_${history}`];
+    const className = isCurrent ? 'RatingList__Row_current' : 'RatingList__Row_previous';
+    const classList = ['RatingList__Row', className];
 
-    const pos = history === THistory.current ? position : position + positionChange;
+    if (isTranslating) {
+      classList.push('RatingList__Row_translating');
+    }
+
+    const pos = isCurrent ? position : position + positionChange;
 
     if (0 === pos % 2) {
       classList.push('RatingList__Row_even');
     }
 
     return classList.join(' ');
-  }, [history, position, positionChange]);
+  }, [isCurrent, isTranslating, position, positionChange]);
 
   return (
     <div className={className} style={style}>

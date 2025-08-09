@@ -9,9 +9,9 @@ type PositionData = {
   valuePrev: number;
 };
 
-type PositionMap = Record<number, PositionData>;
+export type TPositionMap = Record<number, PositionData>;
 
-export const getPositionMap = (ratingList: TRating[]): PositionMap => {
+export const getPositionMap = (ratingList: TRating[]): TPositionMap => {
   const ratingPrevList = ratingList.map((rating) => {
     const positionPrev = rating.position + rating.positionChange;
     const valuePrev = rating.value - rating.valueChange;

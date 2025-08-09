@@ -29,17 +29,16 @@
   }
 
   &__Row {
-    @animation-slow: 1800ms ease;
     align-items: center;
     display: flex;
     height: 48px;
-    transition: background-color @animation, color @animation, transform @animation-slow;
+    transition: background-color @animation, color @animation;
 
-    &_current {
-      transition: background-color @animation-slow, color @animation, transform @animation-slow;
+    &_current&_translating {
+      transition: background-color @animation-x3, color @animation, transform @animation-x3;
     }
 
-    &_previous {
+    &_previous&_translating {
       transition: background-color @animation, color @animation, transform @animation;
     }
 

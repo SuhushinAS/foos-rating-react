@@ -89,12 +89,12 @@ export const schemeList: TNavigationItem<TSchemeV2>[] = [
 
 export const historyList: TNavigationItem<THistory>[] = [
   {
-    icon: <SvgIcon name="history" />,
+    icon: <SvgIcon name="current" />,
     title: 'Стало',
     value: THistory.current,
   },
   {
-    icon: <SvgIcon name="history" />,
+    icon: <SvgIcon name="previous" />,
     title: 'Было',
     value: THistory.previous,
   },
