@@ -34,10 +34,18 @@
     height: 48px;
     transition: background-color @animation, color @animation;
 
+    &_current&_translating {
+      transition: background-color @animation-x3, color @animation, transform @animation-x3;
+    }
+
+    &_previous&_translating {
+      transition: background-color @animation, color @animation, transform @animation;
+    }
+
     .html_light & {
       color: @c-black-6;
 
-      &:nth-child(even) {
+      &_even {
         background-color: @c-black-10;
       }
     }
@@ -45,7 +53,7 @@
     .html_dark & {
       color: @c-white-6;
 
-      &:nth-child(even) {
+      &_even {
         background-color: fade(@c-gray-3, 50%);
       }
     }

@@ -2,6 +2,7 @@ import {useAppDispatch, useAppSelector} from 'app/lib/hooks';
 import {api} from 'modules/common/lib/api';
 import {selectConfigUrls} from 'modules/config/model/selectors';
 import {TCity, TRange} from 'modules/navigation/model/types';
+import {getPositionMap} from 'modules/rating/lib/getPositionMap';
 import {useLoadCityKey} from 'modules/rating/lib/useLoadCityKey';
 import {ratingActions} from 'modules/rating/model/reducers';
 import {
@@ -16,46 +17,33 @@ import {useLoadItem} from 'modules/status/lib/useLoadItem';
 import {statusActions} from 'modules/status/model/reducers';
 import {useEffect} from 'react';
 
-const getRatingListPrev = (acc: TRatingAPI[], rating: TRatingAPI, index: number) => {
-  acc[index + rating.positionChange] = rating;
-
-  return acc;
+const getRatingPosition = (rating: TRatingAPI, index: number): TRating => {
+  return {
+    ...rating,
+    position: index + 1,
+  };
 };
 
-const filterRating = ({eventsPlayed}: TRatingAPI) => {
+export const filterRating = ({eventsPlayed}: TRatingAPI) => {
   return 0 !== eventsPlayed;
 };
 
-const getRatingPositionMap = (acc: Record<number, number>, rating: TRatingAPI, index: number) => {
-  acc[rating.id] = index + 1;
+const getRatingRange = (rating: TRatingDataAPI): TRatingRange => {
+  const ratingListFiltered = rating.ratings.map(getRatingPosition).filter(filterRating);
+  const positionMap = getPositionMap(ratingListFiltered);
+  const ratings = ratingListFiltered.map((rating) => {
+    const {position, positionChange} = positionMap[rating.id];
 
-  return acc;
-};
-
-const getRatingListWithPositions = (ratingList: TRatingAPI[]) => {
-  const ratingPositionPrevMap = ratingList
-    .reduce(getRatingListPrev, [])
-    .filter(filterRating)
-    .reduce(getRatingPositionMap, {});
-
-  return ratingList.filter(filterRating).reduce<TRating[]>((acc, rating, index) => {
-    const position = index + 1;
-    const positionPrev = ratingPositionPrevMap[rating.id];
-
-    acc.push({
+    return {
       ...rating,
       position,
-      positionChange: positionPrev - position,
-    });
+      positionChange,
+    };
+  });
 
-    return acc;
-  }, []);
-};
-
-const getRatingRange = (rating: TRatingDataAPI): TRatingRange => {
   return {
     eventsTotal: rating.eventsTotal,
-    ratings: getRatingListWithPositions(rating.ratings),
+    ratings,
   };
 };
 

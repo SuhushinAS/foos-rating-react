@@ -1,4 +1,5 @@
 import {useAppSelector} from 'app/lib/hooks';
+import {Loader} from 'modules/common/components/Loader';
 import {dateFormatHeader} from 'modules/common/lib/dateFormatOptions';
 import {getDateFormat} from 'modules/common/lib/getDateFormat';
 import {NavigationButton} from 'modules/navigation/components/NavigationButton';
@@ -6,7 +7,9 @@ import {getIndexMap} from 'modules/navigation/lib/useIndexMap';
 import {useNextClick} from 'modules/navigation/lib/useNextClick';
 import {cityList} from 'modules/navigation/model/constants';
 import {TCity} from 'modules/navigation/model/types';
+import {useLoadCityKey} from 'modules/rating/lib/useLoadCityKey';
 import {selectLastEvent} from 'modules/rating/model/selectors';
+import {useLoadItem} from 'modules/status/lib/useLoadItem';
 import React, {useMemo} from 'react';
 import './RatingCityHeader.less';
 
@@ -41,6 +44,10 @@ export const RatingCityHeader = ({city, setCity}: TProps) => {
 
   const onNavigationButtonClick = useNextClick(cityList, setCity, index);
 
+  const loadKey = useLoadCityKey(city);
+  const load = useLoadItem(loadKey);
+  const loading = load ?? true;
+
   return (
     <div className="RatingCityHeader">
       <div className="RatingCityHeader__Head">
@@ -49,13 +56,17 @@ export const RatingCityHeader = ({city, setCity}: TProps) => {
         </NavigationButton>
       </div>
       <h6 className="RatingCityHeader__Info">
-        {rows.map((row, index) => {
-          return (
-            <div className="RatingCityHeader__Row" key={index}>
-              {row}
-            </div>
-          );
-        })}
+        {loading ? (
+          <Loader loading={loading} />
+        ) : (
+          rows.map((row, index) => {
+            return (
+              <div className="RatingCityHeader__Row" key={index}>
+                {row}
+              </div>
+            );
+          })
+        )}
       </h6>
     </div>
   );

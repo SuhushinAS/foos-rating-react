@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {initStore} from 'modules/common/model/initStore';
-import {TCity, TFilter, TRange, TSchemeV2} from 'modules/navigation/model/types';
+import {TCity, TFilter, THistory, TRange, TSchemeV2} from 'modules/navigation/model/types';
 
 export const navigation = createSlice({
   initialState: initStore.navigation,
@@ -11,6 +11,9 @@ export const navigation = createSlice({
     },
     setFilter: (state, {payload}: PayloadAction<TFilter>) => {
       state.filter = payload;
+    },
+    setHistory: (state, {payload}: PayloadAction<THistory>) => {
+      state.history = payload;
     },
     setRange: (state, {payload}: PayloadAction<TRange>) => {
       state.range = payload;

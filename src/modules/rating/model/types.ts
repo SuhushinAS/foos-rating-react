@@ -54,10 +54,6 @@ export type TLastEvent = {
   name: string;
 };
 
-export type TRating = TRatingAPI & {
-  position: number;
-};
-
 export type TRatingDataAPI = {
   eventsTotal: number;
   lastEvent: TLastEvent;
@@ -78,4 +74,8 @@ export type TRatingAPI = {
   value: number;
   valueChange: number;
   wasInLastEvent: boolean;
+};
+
+export type TRating = TRatingAPI & {
+  position: number;
 };

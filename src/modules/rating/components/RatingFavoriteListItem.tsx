@@ -12,7 +12,7 @@ export const RatingFavoriteListItem = ({isActive, item}: TProps) => {
   const className = useMemo(() => {
     const classList = ['RatingFavoriteListItem'];
 
-    if (item.value) {
+    if (isActive) {
       classList.push('RatingFavoriteListItem_Active');
     }
 

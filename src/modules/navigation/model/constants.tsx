@@ -2,6 +2,7 @@ import {SvgIcon} from 'modules/common/components/SvgIcon';
 import {
   TCity,
   TFilter,
+  THistory,
   TNavigationData,
   TNavigationItem,
   TRange,
@@ -84,4 +85,17 @@ export const schemeList: TNavigationItem<TSchemeV2>[] = [
   schemeData[TSchemeV2.auto],
   schemeData[TSchemeV2.dark],
   schemeData[TSchemeV2.light],
+];
+
+export const historyList: TNavigationItem<THistory>[] = [
+  {
+    icon: <SvgIcon name="current" />,
+    title: 'Стало',
+    value: THistory.current,
+  },
+  {
+    icon: <SvgIcon name="previous" />,
+    title: 'Было',
+    value: THistory.previous,
+  },
 ];

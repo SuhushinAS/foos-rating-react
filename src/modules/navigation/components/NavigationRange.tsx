@@ -1,17 +1,16 @@
 import {useAppSelector} from 'app/lib/hooks';
 import {NavigationList} from 'modules/navigation/components/NavigationList';
-import {useCity} from 'modules/navigation/lib/useCity';
 import {useNavigationWithDate} from 'modules/navigation/lib/useNavigationListWithDate';
-import {useRange} from 'modules/navigation/lib/useRange';
 import {useSetRange} from 'modules/navigation/lib/useSetRange';
 import {rangeData} from 'modules/navigation/model/constants';
+import {selectNavigationCity, selectNavigationRange} from 'modules/navigation/model/selectors';
 import {TRange} from 'modules/navigation/model/types';
 import {selectSeasonStartDate} from 'modules/rating/model/selectors';
 import React, {useMemo} from 'react';
 
 export const NavigationRange = () => {
-  const city = useCity();
-  const range = useRange();
+  const city = useAppSelector(selectNavigationCity);
+  const range = useAppSelector(selectNavigationRange);
   const setRange = useSetRange();
   const seasonStartDate = useAppSelector(selectSeasonStartDate(city));
   const rangeSeason = useNavigationWithDate(rangeData[TRange.season], seasonStartDate);

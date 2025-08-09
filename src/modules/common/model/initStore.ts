@@ -1,5 +1,5 @@
 import {schemeMap} from 'modules/navigation/model/constants';
-import {TCity, TFilter, TNavigation, TRange, TSchemeV2} from 'modules/navigation/model/types';
+import {TCity, TFilter, THistory, TNavigation, TRange, TSchemeV2} from 'modules/navigation/model/types';
 import {storageKeyV1, storageKeyV2, storageKeyV3} from 'modules/rating/model/constants';
 import {TRatingStoreV1, TRatingStoreV2} from 'modules/rating/model/types';
 
@@ -8,10 +8,11 @@ export type InitStoreV2 = {
   rating: TRatingStoreV2;
 };
 
-const initStoreDefault = {
+const initStoreDefault: InitStoreV2 = {
   navigation: {
     city: TCity.tsk,
     filter: TFilter.none,
+    history: THistory.current,
     range: TRange.full,
     scheme: TSchemeV2.auto,
   },
@@ -40,7 +41,16 @@ const getInitStore = (key: string, transform: (state: any) => InitStoreV2): Init
 };
 
 const transformV3 = (state: InitStoreV2): InitStoreV2 => {
-  return state;
+  return {
+    navigation: {
+      ...initStoreDefault.navigation,
+      ...state.navigation,
+    },
+    rating: {
+      ...initStoreDefault.rating,
+      ...state.rating,
+    },
+  };
 };
 
 const transformV2 = (state: TRatingStoreV2): InitStoreV2 => {
